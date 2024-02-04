@@ -1,1 +1,2 @@
 hello world for git 
+add setting git commit without -m
