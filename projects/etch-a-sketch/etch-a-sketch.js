@@ -1,5 +1,5 @@
 const gridContainer = document.querySelector('#grid-container');
-const gridNumbers = 5;
+const gridNumbers = 15;
 const gridContainer_width = 600;
 const gridContainer_height = 600;
 
@@ -34,9 +34,9 @@ gridBoxes.forEach((box) => {
 });
 
 
-const box = document.querySelectorAll('.box');
+const boxes = document.querySelectorAll('.box');
 
-box.forEach((boxIn) => {
+boxes.forEach((boxIn) => {
   for (let grid = 1; grid <= gridNumbers; grid++) {
     const createdElement = document.createElement('div');
     boxIn.appendChild(createdElement);
@@ -52,4 +52,20 @@ boxIn.forEach((box) => {
   border: 1px solid black; 
   flex: 1;
   `);
+
+  box.setAttribute('class','box-child');
+});
+
+const boxChild = document.querySelectorAll('.box-child');
+boxChild.forEach((child) => {
+  child.addEventListener('mouseover', () => {
+    child.style.backgroundColor = 'blue';
+    //why set attribute here didnt work
+    //child.setAttribute('style', 'background-color: red');
+  });
+  child.addEventListener('mouseout', () => {
+    child.style.backgroundColor = 'white';
+    //child.setAttribute('style', 'background-color: blue');
+  });
+  
 });
