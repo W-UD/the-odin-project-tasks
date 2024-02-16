@@ -7,16 +7,19 @@
     <style>
       
     </style>
-
-
   </head>
   <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <div class="result"></div>
 
     <script>
       //Initializing the game note afater playRound
       let gameSession = 0;
       let computerScore = 0;
       let playerScore = 0;
+      let scoreTies = 0;
 
       // get computer choice randomly
       function getComputerChoice() {
@@ -46,6 +49,7 @@
       
         if (playerSelection.toLowerCase() === 'rock') {
           if (computerSelection === 'rock') {
+            scoreTies++;
             return 'Ties! You chose Rock, Computer chose Rock';
           } else if (computerSelection === 'paper') {
             computerScore++;
@@ -60,13 +64,14 @@
               playerScore++;
               return 'You win! You chose Paper, Computer chose Rock';
             } else if (computerSelection === 'paper') {
+              scoreTies++;
               return 'Ties! You chose Paper, Computer chose Paper.';
             } else if (computerSelection === 'scissors') {
               computerScore++;
               return 'You lose! You chose Paper, Computer chose Scissors.';
             }
 
-        } else if (playerSelection.toLowerCase === 'scissors') {
+        } else if (playerSelection.toLowerCase() === 'scissors') {
             if (computerSelection === 'rock') {
               computerScore++;
               return 'You lose! You chose Scissors, Computer chose Rock';
@@ -74,6 +79,7 @@
               playerScore++;
               return 'You win! You chose Scissors, Computer chose Paper.';
             } else if (computerSelection === 'scissors') {
+              scoreTies++;
               return 'Ties! You chose Scissors, Computer chose Scissors.';
             }
 
@@ -88,63 +94,77 @@
   
 
       //Play The Game
+      function game(e) {
+        
+        const playerSelection = e.target.id;
+        const computerSelection = getComputerChoice();
+        
+        /*
+        if (playerSelection === null) {
+          return playAgain();
+        }
+        */
       
-      function game() {
+        /*
+        result.textContent =`${e.target.id}, ${computerSelection},
+        ${playRound(e.target.id, computerSelection)}`;
+        */
+        result.innerHTML = `
+          <p>Player: ${playerSelection}</p>
+          <p>Computer: ${computerSelection}</p>
+          <p>${playRound(playerSelection, computerSelection)}</p>
+          <p>Game Session: ${gameSession}</p>
+          Player Score: ${playerScore}<br/>
+          Computer Score: ${computerScore}<br/>
+          Tie: ${scoreTies}
+        `;
+
+        //note after each play
         
-        for (let gamePlay = 0; gamePlay < 5; gamePlay++) {
-          
-          const playerSelection = getPlayerChoice();
-          if (playerSelection === null) {
-            return playAgain();
-          }
-        
-          const computerSelection = getComputerChoice();
-          console.log(playRound(playerSelection, computerSelection))
+        //note after game finished.
+        if (gameSession === 5) {
+          if (playerScore > computerScore) {
+            result.innerHTML = `
+              <p>End of the game. You WON!.</p>
 
-          //note after each play
-          console.log(`
-              Game Session: ${gameSession}
-              Player Score: ${playerScore}
-              Computer Score: ${computerScore}`);
-          
-          //note after game finished.
-          if (gameSession === 5) {
-            if (playerScore > computerScore) {
-              console.log(`
-              End of the game.
-              You win in this session.
+              Last score:<br/>
 
-              Last score:
+              Game Session: ${gameSession}<br/>
+              Player Score: ${playerScore}<br/>
+              Computer Score: ${computerScore}
+              Tie: ${scoreTies}
+            `;
+          } else if(playerScore < computerScore) {
+            result.innerHTML = `
+              <p>End of the game.  You LOSE!<p>
 
-              Game Session: ${gameSession}
-              Player Score: ${playerScore}
-              Computer Score: ${computerScore}`);
-            } else if(playerScore < computerScore) {
-              console.log(`
-              End of the game.
-              You lose in this session.
-
-              Last Score:
-              Game Session: ${gameSession}
-              Player Score: ${playerScore}
-              Computer Score: ${computerScore}`);
-            } else {
-              console.log(`
-              End of the game.
+              <p>Last Score:</p>
+              Game Session: ${gameSession}<br/>
+              Player Score: ${playerScore}<br/>
+              Computer Score: ${computerScore}
+              Tie: ${scoreTies}
+            `;
+          } else {
+            result.innerHTML = `
+              <p>End of the game.</p>
               Ties.
 
-              LastScore:
+              <p>LastScore:</p>
 
-              Game Session: ${gameSession}
-              Player Score: ${playerScore}
-              Computer Score: ${computerScore}`);
-            }
+              Game Session: ${gameSession}<br/>
+              Player Score: ${playerScore}<br/>
+              Computer Score: ${computerScore}
+              Tie: ${scoreTies}
+            `;
           }
 
+          gameSession = 0;
+          playerScore = 0;
+          computerScore = 0;
+          scoreTies = 0;
+
         }
-          
       }
-        
 
       //Play Again
       function playAgain() {
@@ -158,7 +178,7 @@
 
       
      
-      game();
+      //game();
       
       /*
       console.log(`Game Session: ${gameSession}`);
@@ -166,12 +186,22 @@
       console.log(`Computer Score: ${computerScore}`);
       */
       
+      //New update:
+      const rock = document.querySelector('#rock');
+      const paper = document.querySelector('#paper');
+      const scissors = document.querySelector('#scissors');
+      const result = document.querySelector('.result');
 
+      rock.addEventListener('click', (e) => {
+        game(e);
+      });
+      paper.addEventListener('click', (e) => {
+        game(e);
+      });
+      scissors.addEventListener('click', (e) => {
+        game(e);
+      });
       
-      
-        
-      
-
     </script>
   </body>
 
