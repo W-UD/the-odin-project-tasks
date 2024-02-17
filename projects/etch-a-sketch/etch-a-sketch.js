@@ -143,21 +143,24 @@ function makeDarker(boxChild) {
   let g = 16;
   let b = 55;
 
-  if (r <= 0 && g <= 0 && b <= 0) {
-    r = 251;
-    g = 16;
-    b = 55;
-  }
   boxChild.forEach((child) => {
     console.log('darker')
-     
+      
     child.addEventListener('click', (e) => {
+      if ((r < 30) && (g < 30) && (b < 30)) {
+        r = 251;
+        g = 16;
+        b = 55;
+        console.log('test');
+      }
       e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
       r = r - (Math.floor(r * 10 / 100));
-      g = g - (Math.floor(r * 10 / 100));
-      b = r - (Math.floor(r * 10 / 100));
+      g = g - (Math.floor(g * 10 / 100));
+      b = b - (Math.floor(b * 10 / 100));
+      console.log(r, g, b);
     });
   });
+  
 }
 
 activateGrid();
