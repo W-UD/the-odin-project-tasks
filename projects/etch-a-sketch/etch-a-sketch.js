@@ -25,15 +25,15 @@ addBoxesButton.addEventListener('click', () => {
 
 
 function activateGrid() {
-  gridContainer.setAttribute('style', 
-  `max-width: ${gridContainer_width}px; 
-  height: ${gridContainer_height}px; 
-  backgroud-color: gray; 
-  border: 1px solid gray; 
-  box-sixing: border-box; 
-  padding: 0;
-  display: flex;
-  margin: 0 auto;
+  gridContainer.setAttribute('style', `
+    max-width: ${gridContainer_width}px; 
+    height: ${gridContainer_height}px; 
+    backgroud-color: gray; 
+    border: 1px solid gray; 
+    box-sixing: border-box; 
+    padding: 0;
+    display: flex;
+    margin: 0 auto;
   `);
 
 
@@ -44,13 +44,13 @@ function activateGrid() {
 
   const gridBoxes = document.querySelectorAll('#grid-container > div');
   gridBoxes.forEach((box) => {
-    box.setAttribute('style', 
-    `width: ${gridContainer_width / gridNumbers}px; 
-    height: 100%; 
-    border: 1px solid gray; 
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    box.setAttribute('style', `
+      width: ${gridContainer_width / gridNumbers}px; 
+      height: 100%; 
+      border: 1px solid gray; 
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     `);
     box.classList.add('box');
   });
@@ -68,17 +68,18 @@ function activateGrid() {
   const boxIn = document.querySelectorAll('.box > div');
 
   boxIn.forEach((box) => {
-    box.setAttribute('style', 
-    `width: 100%; 
-    height: 100%; 
-    border: 1px solid gray; 
-    flex: 1;
+    box.setAttribute('style', `
+      width: 100%; 
+      height: 100%; 
+      border: 1px solid gray; 
+      flex: 1;
     `);
     box.setAttribute('class','box-child');
   });
 
   const boxChild = document.querySelectorAll('.box-child');
   boxChild.forEach((child) => {
+    child.style.backgroundColor = 'pink';
     child.addEventListener('mouseover', () => {
       child.style.backgroundColor = 'blue';
       //why set attribute here didnt work
@@ -92,13 +93,15 @@ function activateGrid() {
         //child.setAttribute('style', 'background-color: blue');
       }
     });
+
   });
 
   const randomColorButton = document.querySelector('#to-randomize-color');
-  randomColorButton.addEventListener('click', () => {
+  randomColorButton.addEventListener('click', (e) => {
     if (randomClicked === false) {
       console.log(randomClicked);
       const clicked = randomColorButton.classList.add('clicked');
+      randomColorButton.textContent = 'Random Color: on'
       
       randomClicked = true;
       console.log(randomClicked);
@@ -110,13 +113,14 @@ function activateGrid() {
 
     else {
       const clicked = randomColorButton.classList.remove('clicked');
+      randomColorButton.textContent = 'Random Color: disabled'
       boxChild.forEach((child) => {
         child.removeEventListener('click', getRandomColor);
       });
       randomClicked = false;
     }
-
   });
+
 }
 
 function getRandomColor (e) {

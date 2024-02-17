@@ -1,3 +1,13 @@
+#descriptions {
+  border: none;
+  box-shadow: 1px 1px 3px 2px gray;
+  text-align: center;
+  width: 70%;
+  padding: 10px;
+  color: rgb(149, 47, 47);
+  margin: 0 auto;
+}
+
 #add-boxes,
 #to-randomize-color {
   display: block;
