@@ -1,1 +1,1 @@
-ECHO is on.
+Etch a Sketch task
