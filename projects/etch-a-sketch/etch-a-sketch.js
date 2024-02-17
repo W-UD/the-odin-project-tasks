@@ -121,6 +121,11 @@ function activateGrid() {
     }
   });
 
+  const makeDarkerButton = document.querySelector('#make-darker');
+  makeDarkerButton.addEventListener('click', () =>{
+    makeDarker(boxChild);
+  });
+
 }
 
 function getRandomColor (e) {
@@ -129,6 +134,30 @@ function getRandomColor (e) {
   const b = Math.floor(Math.random() * 256);
 
   const targetColor = e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
+
+
+function makeDarker(boxChild) {
+  console.log('darker');
+  let r = 251;
+  let g = 16;
+  let b = 55;
+
+  if (r <= 0 && g <= 0 && b <= 0) {
+    r = 251;
+    g = 16;
+    b = 55;
+  }
+  boxChild.forEach((child) => {
+    console.log('darker')
+     
+    child.addEventListener('click', (e) => {
+      e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+      r = r - (Math.floor(r * 10 / 100));
+      g = g - (Math.floor(r * 10 / 100));
+      b = r - (Math.floor(r * 10 / 100));
+    });
+  });
 }
 
 activateGrid();

@@ -4,12 +4,13 @@
   text-align: center;
   width: 70%;
   padding: 10px;
-  color: rgb(149, 47, 47);
+  color: rgb(120, 41, 41);
   margin: 0 auto;
 }
 
 #add-boxes,
-#to-randomize-color {
+#to-randomize-color,
+#make-darker {
   display: block;
   margin: 10px auto 10px auto;
   padding: 6px;
