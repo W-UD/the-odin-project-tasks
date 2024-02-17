@@ -8,8 +8,18 @@ let clicked = false;
 
 addBoxesButton.addEventListener('click', () => {
   const userInput = parseInt(prompt('Enter number of boxes you want..'));
-  gridNumbers = userInput;
-  gridContainer.innerHTML = '';
+  if (userInput < 1 || userInput > 100) {
+    alert('You entered a number that are not 1 to 100. please enter again');
+    return;
+  }
+  else {
+    gridNumbers = userInput;
+  //gridContainer.innerHTML = '';
+  //gridContainer.replaceChildren();
+    }
+    while(gridContainer.firstChild) {
+      gridContainer.firstChild.remove();
+  }
   activateGrid();
 });
 
