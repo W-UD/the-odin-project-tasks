@@ -4,7 +4,7 @@ const gridContainer = document.querySelector('#grid-container');
 let gridNumbers = 5;
 const gridContainer_width = 600;
 const gridContainer_height = 600;
-let randomized = '';
+let randomClicked = false;
 
 addBoxesButton.addEventListener('click', () => {
   const userInput = parseInt(prompt('Enter number of boxes you want..'));
@@ -96,18 +96,35 @@ function activateGrid() {
 
   const randomColorButton = document.querySelector('#to-randomize-color');
   randomColorButton.addEventListener('click', () => {
+    if (randomClicked === false) {
+      console.log(randomClicked);
+      const clicked = randomColorButton.classList.add('clicked');
+      
+      randomClicked = true;
+      console.log(randomClicked);
 
-    boxChild.forEach((child) => {
-      child.addEventListener('click', (e) => {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
-
-        const targetColor = e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-        randomized = targetColor;
+      boxChild.forEach((child) => {
+        child.addEventListener('click', getRandomColor);
       });
-    });
+    }
+
+    else {
+      const clicked = randomColorButton.classList.remove('clicked');
+      boxChild.forEach((child) => {
+        child.removeEventListener('click', getRandomColor);
+      });
+      randomClicked = false;
+    }
+
   });
+}
+
+function getRandomColor (e) {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+
+  const targetColor = e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
 
 activateGrid();
