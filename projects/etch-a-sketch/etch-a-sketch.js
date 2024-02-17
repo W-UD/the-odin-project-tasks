@@ -4,7 +4,7 @@ const gridContainer = document.querySelector('#grid-container');
 let gridNumbers = 5;
 const gridContainer_width = 600;
 const gridContainer_height = 600;
-let clicked = false;
+let randomized = '';
 
 addBoxesButton.addEventListener('click', () => {
   const userInput = parseInt(prompt('Enter number of boxes you want..'));
@@ -74,7 +74,6 @@ function activateGrid() {
     border: 1px solid gray; 
     flex: 1;
     `);
-
     box.setAttribute('class','box-child');
   });
 
@@ -85,13 +84,36 @@ function activateGrid() {
       //why set attribute here didnt work
       //child.setAttribute('style', 'background-color: red');
     });
-    child.addEventListener('mouseout', () => {
-      child.style.backgroundColor = 'white';
-      //child.setAttribute('style', 'background-color: blue');
-    });
     
+    child.addEventListener('mouseout', (e) => {
+      
+      if(e.target.style.backgroundColor === 'blue') {
+        child.style.backgroundColor = 'pink';
+        //child.setAttribute('style', 'background-color: blue');
+      }
+    });
+  });
+
+  const randomColorButton = document.querySelector('#to-randomize-color');
+  randomColorButton.addEventListener('click', () => {
+
+    boxChild.forEach((child) => {
+      child.addEventListener('click', (e) => {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+
+        const targetColor = e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        randomized = targetColor;
+      });
+    });
   });
 }
 
 activateGrid();
+
+//randomize box color
+
+
+
 
