@@ -2,12 +2,21 @@
   border: none;
   box-shadow: 1px 1px 3px 2px gray;
   text-align: center;
-  width: 70%;
+  width: 50%;
   padding: 10px;
   color: rgb(120, 41, 41);
   margin: 0 auto;
+  font-size: 15px;
+  border-radius: 30px;
+  margin-bottom: 30px;
 }
 
+@media only screen and (max-width: 500px) {
+  #descriptions {
+    font-size: 13px;
+  }
+}
+#description-button,
 #add-boxes,
 #to-randomize-color,
 #make-darker {
