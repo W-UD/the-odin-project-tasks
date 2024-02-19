@@ -1,3 +1,10 @@
+#grid-container {
+  width: 600px;
+  height: 600px;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
 #descriptions {
   border: none;
   box-shadow: 1px 1px 3px 2px gray;
