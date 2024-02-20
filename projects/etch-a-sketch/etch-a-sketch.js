@@ -1,9 +1,11 @@
 const addBoxes = document.querySelector('#add-boxes');
 const gridContainer  = document.querySelector('#grid-container');
 
-const randomColorButtoon = document.querySelector('#to-randomize-color');
+const randomColorButton = document.querySelector('#to-randomize-color');
+const makeDarkerButton = document.querySelector('#make-darker');
 
 let randomColorInfo = 'off';
+let makeDarkerInfo = 'off';
 let numberOfBoxes = 5;
 
 //Add Number of Boxes
@@ -13,7 +15,10 @@ addBoxes.addEventListener('click', () => {
   const grandChild =  document.querySelectorAll('.grid-container-child > div');
 
   if (randomColorInfo === 'on') {
-    randomColorOff();
+    randomColorOff(grandChild);
+    activateRandomColor(grandChild);
+  }
+  else {
     activateRandomColor(grandChild);
   }
   
@@ -49,20 +54,24 @@ function get_gridContainerChild() {
 
   //GrandChild
   const grandChild = document.querySelectorAll('.grid-container-child > div');
-  grandChild.forEach((grandChild) => {
-    grandChild.classList.add('grand-child');
+  grandChild.forEach((child) => {
+    child.classList.add('grand-child');
   })
   console.log(gridContainerChild);
 
-  //random color
+  //Random Color
   activateRandomColor(grandChild);
+
+  //Make Darker
+  activateMakeDarker(grandChild);
 
 }
 
 get_gridContainerChild();
 
-//GrandChild EventListenr Function
-function GrandChildRM(e) {
+//Random Color
+//Random color EventListenr Function
+function grandChildRM(e) {
   //Set Up Random Color
   let r = Math.floor(Math.random() * 256);
   let g = Math.floor(Math.random() * 256);
@@ -70,36 +79,70 @@ function GrandChildRM(e) {
   e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
 
-//Random Color
 //Activate Random Color
 function activateRandomColor(grandChild) {
-  randomColorButtoon.addEventListener('click', () => {
-  
+  randomColorButton.addEventListener('click', () => {
     if (randomColorInfo === 'off') {
-      randomColorButtoon.textContent = 'Random Color: On';
-      randomColorButtoon.style.cssText = 'color: white; background: rgb(59, 59, 226);';
+      randomColorButton.textContent = 'Random Color: On';
+      randomColorButton.style.cssText = 'color: white; background: rgb(59, 59, 226);';
       randomColorInfo = 'on';
 
-      grandChild.forEach((gcChild) => {
-        gcChild.addEventListener('click', GrandChildRM);
+      grandChild.forEach((child) => {
+        child.addEventListener('click', grandChildRM);
       });
     }
     else if (randomColorInfo === 'on') {
-      randomColorOff();
+      randomColorOff(grandChild);
     }
   });
 }
 
 
 //RandomColor Toggle off
-function randomColorOff() {
-  randomColorButtoon.textContent = 'Random Color: disabled';
-  randomColorButtoon.style.cssText = 'color: black; background: white;';
+function randomColorOff(grandChild) {
+  randomColorButton.textContent = 'Random Color: disabled';
+  randomColorButton.style.cssText = 'color: black; background: white;';
 
   randomColorInfo = 'off';
 
   grandChild.forEach((gcChild) => {
-    gcChild.removeEventListener('click', GrandChildRM);
+    gcChild.removeEventListener('click', grandChildRM);
   }); 
 }
 
+//-----------//
+//Make Darker
+function activateMakeDarker(grandChild) {
+  makeDarkerButton.addEventListener('click', () => {
+    if (makeDarkerInfo === 'off') {
+      makeDarkerButton.textContent = 'Make Darker: On';
+      makeDarkerButton.style.cssText = 'color: white; background: rgb(59, 59, 226);';
+      makeDarkerInfo = 'on';
+
+      grandChild.forEach((gcChild) => {
+        gcChild.addEventListener('click', grandChildMD);
+      });
+    }
+    else if (makeDarkerInfo === 'on') {
+      makeDarkerOff(grandChild);
+    }
+  });
+}
+
+//Grandchild Make Darker
+function grandChildMD(e) {
+  // rgb(210, 101, 119);
+  e.target.style.backgroundColor = 'rgb(210, 101, 119);';
+}
+
+//Make Darker toggle off
+function makeDarkerOff(grandChild) {
+  makeDarkerButton.textContent = 'Make Darker: disabled';
+  makeDarkerButton.style.cssText = 'color: black; background: white;';
+
+  makeDarkerInfo = 'off';
+
+  grandChild.forEach((gcChild) => {
+    gcChild.removeEventListener('click', grandChildMD);
+  }); 
+}
