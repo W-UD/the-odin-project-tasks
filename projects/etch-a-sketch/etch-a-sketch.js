@@ -11,7 +11,11 @@ addBoxes.addEventListener('click', () => {
   const input = parseInt(prompt('Enter a number'));
   numberOfBoxes = input;
   const grandChild =  document.querySelectorAll('.grid-container-child > div');
-  activateRandomColor(grandChild);
+
+  if (randomColorInfo === 'on') {
+    randomColorOff();
+    activateRandomColor(grandChild);
+  }
   
   while(gridContainer.firstChild) {
     gridContainer.firstChild.remove();
@@ -57,7 +61,15 @@ function get_gridContainerChild() {
 
 get_gridContainerChild();
 
-////////////////////////////////////////////////
+//GrandChild EventListenr Function
+function GrandChildRM(e) {
+  //Set Up Random Color
+  let r = Math.floor(Math.random() * 256);
+  let g = Math.floor(Math.random() * 256);
+  let b = Math.floor(Math.random() * 256);
+  e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
+
 //Random Color
 //Activate Random Color
 function activateRandomColor(grandChild) {
@@ -73,17 +85,21 @@ function activateRandomColor(grandChild) {
       });
     }
     else if (randomColorInfo === 'on') {
-      randomColorButtoon.textContent = 'Random Color: disabled';
-      randomColorButtoon.style.cssText = 'color: black; background: white;';
-      randomColorInfo = 'off';
-      grandChild.forEach((gcChild) => {
-        gcChild.removeEventListener('click', GrandChildRM);
-      });
+      randomColorOff();
     }
   });
 }
 
-//GrandChild EventListenr Function
-function GrandChildRM(e) {
-  e.target.style.backgroundColor = 'blue';
+
+//RandomColor Toggle off
+function randomColorOff() {
+  randomColorButtoon.textContent = 'Random Color: disabled';
+  randomColorButtoon.style.cssText = 'color: black; background: white;';
+
+  randomColorInfo = 'off';
+
+  grandChild.forEach((gcChild) => {
+    gcChild.removeEventListener('click', GrandChildRM);
+  }); 
 }
+
