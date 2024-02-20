@@ -3,7 +3,29 @@
   height: 600px;
   border: 1px solid black;
   margin: 0 auto;
+  display: flex;
+  box-sizing: border-box;
 }
+
+.grid-container-child {
+  border: 1px solid black;
+  max-width: 300px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.grand-child {
+  border: 1px solid black;
+  width: 100%;
+  flex: 1;
+}
+/*
+#to-randomize-color {
+  background-color: rgb(59, 59, 226);
+  color: white;
+}
+*/
 
 #descriptions {
   border: none;
