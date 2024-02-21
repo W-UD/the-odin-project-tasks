@@ -17,9 +17,16 @@ addBoxes.addEventListener('click', () => {
   if (randomColorInfo === 'on') {
     randomColorOff(grandChild);
     activateRandomColor(grandChild);
+    activateMakeDarker(grandChild);
+  }
+  else if (makeDarkerInfo === 'on') {
+    makeDarkerOff(grandChild);
+    activateMakeDarker(grandChild);
+    activateMakeDarker(grandChild);
   }
   else {
     activateRandomColor(grandChild);
+    activateMakeDarker(grandChild);
   }
   
   while(gridContainer.firstChild) {
@@ -83,6 +90,9 @@ function grandChildRM(e) {
 function activateRandomColor(grandChild) {
   randomColorButton.addEventListener('click', () => {
     if (randomColorInfo === 'off') {
+      if (makeDarkerInfo === 'on') {
+        makeDarkerOff(grandChild);
+      }
       randomColorButton.textContent = 'Random Color: On';
       randomColorButton.style.cssText = 'color: white; background: rgb(59, 59, 226);';
       randomColorInfo = 'on';
@@ -112,9 +122,13 @@ function randomColorOff(grandChild) {
 
 //-----------//
 //Make Darker
+//Activate Make Darker
 function activateMakeDarker(grandChild) {
   makeDarkerButton.addEventListener('click', () => {
     if (makeDarkerInfo === 'off') {
+      if (randomColorInfo === 'on') {
+        randomColorOff(grandChild);
+      }
       makeDarkerButton.textContent = 'Make Darker: On';
       makeDarkerButton.style.cssText = 'color: white; background: rgb(59, 59, 226);';
       makeDarkerInfo = 'on';
@@ -129,10 +143,22 @@ function activateMakeDarker(grandChild) {
   });
 }
 
-//Grandchild Make Darker
+//Grandchild : Make Darker color setting
+let r = 210;
+let g = 101;
+let b = 119;
 function grandChildMD(e) {
-  // rgb(210, 101, 119);
-  e.target.style.backgroundColor = 'rgb(210, 101, 119);';
+  
+  e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+  r = r - ( r * 10 / 100);
+  g = g - ( g * 10 / 100);
+  b = b - ( b * 10 / 100);
+
+  if ((r < 30) && (g < 30) && (b < 30)) {
+    r = 210;
+    g = 101;
+    b = 119;
+  }
 }
 
 //Make Darker toggle off
@@ -142,7 +168,7 @@ function makeDarkerOff(grandChild) {
 
   makeDarkerInfo = 'off';
 
-  grandChild.forEach((gcChild) => {
-    gcChild.removeEventListener('click', grandChildMD);
+  grandChild.forEach((child) => {
+    child.removeEventListener('click', grandChildMD);
   }); 
 }
