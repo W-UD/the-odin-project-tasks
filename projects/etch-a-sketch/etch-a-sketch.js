@@ -21,11 +21,7 @@ addBoxes.addEventListener('click', () => {
   }
   else if (makeDarkerInfo === 'on') {
     makeDarkerOff(grandChild);
-<<<<<<< HEAD
     activateRandomColor(grandChild);
-=======
-    activateMakeDarker(grandChild);
->>>>>>> new
     activateMakeDarker(grandChild);
   }
   else {
