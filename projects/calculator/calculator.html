@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Task: Calculator</title>
+  </head>
+  <body>
+    Calculator
+
+    <script>
+      function add(one, two) {
+        return one + two;
+      }
+      function substract(one, two) {
+        return one - two;
+      }
+
+      function multiply(one, two) {
+        return one * two;
+      }
+
+      function devide(one, two) {
+        return one / two;
+      }
+
+      console.log(add(1, 2));
+      console.log(substract(1, 2));
+      console.log(multiply(1, 2));
+      console.log(devide(1, 2));
+
+      let firsNumber = 1;
+      let secondNumber = 2;
+      let operator = '/';
+
+      function operate(firsNumber, secondNumber, operator) {
+        if (operator === '+') {
+          return add(firsNumber, secondNumber);
+        } else if (operator === '-') {
+          return substract(firsNumber, secondNumber);
+        } else if (operator === '*') {
+          return multiply(firsNumber, secondNumber);
+        } else if (operator === '/') {
+          return devide(firsNumber, secondNumber);
+        }
+      }
+
+      console.log(operate(firsNumber, secondNumber, operator));
+    </script>
+  </body>
+</html>
