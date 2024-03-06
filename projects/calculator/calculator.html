@@ -17,7 +17,7 @@
       </div>
 
       <div>
-        <button class="num-button">8</button> <button class="num-button">9</button> <button id="equal-button">=</button> <button>clear</button>
+        <button class="num-button">8</button> <button class="num-button">9</button> <button id="equal-button">=</button> <button id="clear-button">clear</button>
       </div>
 
       <div>
@@ -73,9 +73,11 @@
       //Num Button access
       const numButton = document.querySelectorAll('.num-button');
       const numButtonDisplay = document.querySelector('.num-button-display');
-      const equalButton = document.querySelector('#equal-button');
 
+      const equalButton = document.querySelector('#equal-button');
       const operatorButton = document.querySelectorAll('.operator-button');
+      const clearButton = document.querySelector('#clear-button');
+
 
       let displayValueB = null;
       
@@ -95,10 +97,11 @@
             }
 
           } else if (button.textContent === '+' || button.textContent === '-' || button.textContent === '*' || button.textContent === '/') {
+
             if (operationSign === 0) {
               displayValueB +=  ` | ${button.textContent} | `;
               operationSign = 1;
-              
+
             } else if (operationSign === 1) {
               return equalButtonActivate(button);
             }
@@ -114,6 +117,7 @@
       numButton.forEach((button) => displayButton(button));
 
       operatorButton.forEach(button => displayButton(button));
+      clearButton.addEventListener('click', () => equalButtonActivate(clearButton));
 
       //Equal Button
       equalButton.addEventListener('click', () => {
@@ -158,9 +162,7 @@
       //   operationSign = 0;
       });
 
-      //-----------------------------------------------------------
-      //Still working on this
-      
+      //Activate EqualButton function to also be used on another buttons of operation
       function equalButtonActivate(button) {
         let arrayNum = [];
         let splitDisplayValueB = displayValueB.split(' | ');
@@ -185,6 +187,11 @@
           if (button.textContent === '=') {
             numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]);
             displayValueB = null;
+            
+          } else if (button.textContent === 'clear') {
+            numButtonDisplay.textContent = '0';
+            displayValueB = null;
+
 
           } else {
             numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' | ' + button.textContent + ' | ';
