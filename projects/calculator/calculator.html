@@ -81,13 +81,24 @@
       
       function displayButton(button) { 
         button.addEventListener('click', () => {
-          if (displayValueB === null || displayValueB ===  '+' || displayValueB === '/' || displayValueB === '*') {
-            displayValueB = `${button.textContent}`;
+          if (displayValueB === null) {
+
+            if (button.textContent === '+' || button.textContent === '/' || button.textContent === '*') {
+              
+              displayValueB = null;
+              operationSign = 0;
+
+            } else {
+              displayValueB = `${button.textContent}`;
+              operationSign = 0;
+
+            }
 
           } else if (button.textContent === '+' || button.textContent === '-' || button.textContent === '*' || button.textContent === '/') {
             if (operationSign === 0) {
               displayValueB +=  ` | ${button.textContent} | `;
               operationSign = 1;
+              
             } else if (operationSign === 1) {
               return equalButtonActivate(button);
             }
