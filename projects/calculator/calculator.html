@@ -7,7 +7,29 @@
   </head>
   <body>
     Calculator
+    <div>
+      <div>
+        <button class="num-button">0</button> <button class="num-button">1</button> <button class="num-button">2</button> <button class="num-button">3</button>
+      </div>
 
+      <div>
+        <button class="num-button">4</button> <button class="num-button">5</button> <button class="num-button">6</button> <button class="num-button">7</button>
+      </div>
+
+      <div>
+        <button class="num-button">8</button> <button class="num-button">9</button> <button id="equal-button">=</button> <button>clear</button>
+      </div>
+
+      <div>
+        <button class="operator-button">+</button> <button class="operator-button">-</button> <button class="operator-button">*</button> <button class="operator-button">/</button>
+      </div>
+
+      <!--Display of button clicked-->
+      <div> 
+        <p class="num-button-display">u</p>
+      </div>
+
+    </div>
     <script>
       function add(one, two) {
         return one + two;
@@ -29,11 +51,12 @@
       console.log(multiply(1, 2));
       console.log(devide(1, 2));
 
-      let firsNumber = 1;
-      let secondNumber = 2;
-      let operator = '/';
+      let firsNumber = 0;
+      let secondNumber = 0;
+      let operator = '';
+      let operationSign = 0;
 
-      function operate(firsNumber, secondNumber, operator) {
+      function operate(firsNumber, operator, secondNumber) {
         if (operator === '+') {
           return add(firsNumber, secondNumber);
         } else if (operator === '-') {
@@ -46,6 +69,126 @@
       }
 
       console.log(operate(firsNumber, secondNumber, operator));
-    </script>
+
+      //Num Button access
+      const numButton = document.querySelectorAll('.num-button');
+      const numButtonDisplay = document.querySelector('.num-button-display');
+      const equalButton = document.querySelector('#equal-button');
+
+      const operatorButton = document.querySelectorAll('.operator-button');
+
+      let displayValueB = null;
+      
+      function displayButton(button) { 
+        button.addEventListener('click', () => {
+          if (displayValueB === null || displayValueB ===  '+' || displayValueB === '/' || displayValueB === '*') {
+            displayValueB = `${button.textContent}`;
+
+          } else if (button.textContent === '+' || button.textContent === '-' || button.textContent === '*' || button.textContent === '/') {
+            if (operationSign === 0) {
+              displayValueB +=  ` | ${button.textContent} | `;
+              operationSign = 1;
+            } else if (operationSign === 1) {
+              return equalButtonActivate();
+            }
+
+          } else {
+            displayValueB +=  `${button.textContent}`;
+          }
+          numButtonDisplay.textContent = displayValueB;
+        });
+      }
+
+      //Display the button textContent when clicked
+      numButton.forEach((button) => displayButton(button));
+
+      operatorButton.forEach(button => displayButton(button));
+
+      //Equal Button
+      equalButton.addEventListener('click', () => {
+        let arrayNum = [];
+        let splitDisplayValueB = displayValueB.split(' | ');
+
+        console.log(splitDisplayValueB);
+        console.log(Array.isArray(splitDisplayValueB));
+
+        splitDisplayValueB.forEach((item) => {
+          const number = Number(item);
+          console.log(number);
+
+          if (!isNaN(number)) {
+            arrayNum.push(number);
+          } else {
+            arrayNum.push(item);
+          }
+          console.log(arrayNum);
+        });
+
+        //arrayNum = [];
+        function getOperating() {
+          numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]);
+          displayValueB = null;
+        }
+        
+        if (arrayNum[1] === '+') {
+          return getOperating();
+          
+        } else if (arrayNum[1] === '/') {
+          return getOperating();
+          
+        } else if (arrayNum[1] === '*') {
+          return getOperating();
+          
+        } else if (arrayNum[1] === '-') {
+          return getOperating();
+        }
+        
+        operationSign = 0;
+      });
+
+      //-----------------------------------------------------------
+      //Still working on this
+      
+      function equalButtonActivate() {
+        let arrayNum = [];
+        let splitDisplayValueB = displayValueB.split(' | ');
+
+        console.log(splitDisplayValueB);
+        console.log(Array.isArray(splitDisplayValueB));
+
+        splitDisplayValueB.forEach((item) => {
+          const number = Number(item);
+          console.log(number);
+
+          if (!isNaN(number)) {
+            arrayNum.push(number);
+          } else {
+            arrayNum.push(item);
+          }
+          console.log(arrayNum);
+        });
+
+        //arrayNum = [];
+        function getOperating() {
+          numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]);
+          displayValueB = null;
+        }
+          
+          if (arrayNum[1] === '+') {
+            return getOperating();
+            
+          } else if (arrayNum[1] === '/') {
+            return getOperating();
+            
+          } else if (arrayNum[1] === '*') {
+            return getOperating();
+            
+          } else if (arrayNum[1] === '-') {
+            return getOperating();
+          }
+          
+          operationSign = 0;
+      }
+      </script>
   </body>
 </html>
