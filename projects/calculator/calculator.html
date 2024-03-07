@@ -83,7 +83,7 @@
       
       function displayButton(button) { 
         button.addEventListener('click', () => {
-          if (displayValueB === '') {
+          if (displayValueB === '' || displayValueB === '0') {
             
             if (button.textContent === '+' || button.textContent === '/' || button.textContent === '*') {
               
@@ -103,7 +103,8 @@
               operationSign = 1;
 
             } else if (operationSign === 1) {
-              return equalButtonActivate(button);
+              equalButtonActivate(button);
+              operationSign = 1;
             }
 
           } else {
@@ -195,22 +196,7 @@
             displayValueB = numButtonDisplay.textContent;
 
 
-          } else if (button.textContent === '*') {
-
-            let displayValueBArray = displayValueB.split(' | ');
-            if (displayValueBArray[2] === '') {
-
-              numButtonDisplay.textContent = displayValueBArray[0] + ' | ' + button.textContent + ' | ';
-              displayValueB = numButtonDisplay.textContent;
-
-            } else {
-              numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' | ' + button.textContent + ' | ';
-              displayValueB = numButtonDisplay.textContent;
-              
-            }
-
-
-          } else if (button.textContent === '/') {
+          } else if (button.textContent === '*' || button.textContent === '/' || button.textContent === '-' | button.textContent === '+') {
             
             let displayValueBArray = displayValueB.split(' | ');
             if (displayValueBArray[2] === '') {
