@@ -79,15 +79,15 @@
       const clearButton = document.querySelector('#clear-button');
 
 
-      let displayValueB = null;
+      let displayValueB = '';
       
       function displayButton(button) { 
         button.addEventListener('click', () => {
-          if (displayValueB === null) {
+          if (displayValueB === '') {
 
             if (button.textContent === '+' || button.textContent === '/' || button.textContent === '*') {
               
-              displayValueB = null;
+              displayValueB = '';
               operationSign = 0;
 
             } else {
@@ -143,7 +143,7 @@
       //   //arrayNum = [];
       //   function getOperating() {
       //     numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]);
-      //     displayValueB = null;
+      //     displayValueB = '';
       //   }
         
       //   if (arrayNum[1] === '+') {
@@ -186,12 +186,40 @@
         function getOperating() {
           if (button.textContent === '=') {
             numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]);
-            displayValueB = null;
+            displayValueB = '';
             
           } else if (button.textContent === 'clear') {
             numButtonDisplay.textContent = '0';
-            displayValueB = null;
+            displayValueB = numButtonDisplay.textContent;
 
+
+          } else if (button.textContent === '*') {
+
+            let displayValueBArray = displayValueB.split(' | ');
+            if (displayValueBArray[2] === '') {
+
+              numButtonDisplay.textContent = displayValueBArray[0] + ' | ' + button.textContent + ' | ';
+              displayValueB = numButtonDisplay.textContent;
+
+            } else {
+              numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' | ' + button.textContent + ' | ';
+              displayValueB = numButtonDisplay.textContent;
+              
+            }
+
+
+          } else if (button.textContent === '/') {
+            let displayValueBArray = displayValueB.split(' | ');
+            if (displayValueBArray[2] === '') {
+
+              numButtonDisplay.textContent = displayValueBArray[0] + ' | ' + button.textContent + ' | ';
+              displayValueB = numButtonDisplay.textContent;
+
+            } else {
+              numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' | ' + button.textContent + ' | ';
+              displayValueB = numButtonDisplay.textContent;
+              
+            }
 
           } else {
             numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' | ' + button.textContent + ' | ';
