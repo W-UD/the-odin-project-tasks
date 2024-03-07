@@ -84,7 +84,7 @@
       function displayButton(button) { 
         button.addEventListener('click', () => {
           if (displayValueB === '') {
-
+            
             if (button.textContent === '+' || button.textContent === '/' || button.textContent === '*') {
               
               displayValueB = '';
@@ -121,7 +121,9 @@
 
       //Equal Button
       equalButton.addEventListener('click', () => {
-        equalButtonActivate(equalButton);
+        return equalButtonActivate(equalButton);
+       // operationSign = 0;
+        
       //   let arrayNum = [];
       //   let splitDisplayValueB = displayValueB.split(' | ');
 
@@ -186,7 +188,7 @@
         function getOperating() {
           if (button.textContent === '=') {
             numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]);
-            displayValueB = '';
+            displayValueB = numButtonDisplay.textContent;
             
           } else if (button.textContent === 'clear') {
             numButtonDisplay.textContent = '0';
@@ -209,6 +211,7 @@
 
 
           } else if (button.textContent === '/') {
+            
             let displayValueBArray = displayValueB.split(' | ');
             if (displayValueBArray[2] === '') {
 
@@ -228,20 +231,24 @@
           }
         }
           
-          if (arrayNum[1] === '+') {
-            return getOperating();
-            
-          } else if (arrayNum[1] === '/') {
-            return getOperating();
-            
-          } else if (arrayNum[1] === '*') {
-            return getOperating();
-            
-          } else if (arrayNum[1] === '-') {
-            return getOperating();
-          }
+        if (arrayNum[1] === '+') {
+          getOperating();
           
-          operationSign = 0;
+        } else if (arrayNum[1] === '/') {
+          getOperating();
+          
+        } else if (arrayNum[1] === '*') {
+          getOperating();
+          
+        } else if (arrayNum[1] === '-') {
+          getOperating();
+        }
+
+        if (button.textContent === 'clear') {
+          getOperating();
+        }
+        
+        operationSign = 0;
       }
       </script>
   </body>
