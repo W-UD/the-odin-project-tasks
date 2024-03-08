@@ -85,14 +85,27 @@ function displayButton(button) {
       }
 
     } else  if (button.textContent === '.') {
-
+      console.log('this is dot');
+      let displayValueBArray = displayValueB.split(' ');
       if (decimalEntered) {
+
+        if (displayValueBArray.length === 3) {
+
+          if (displayValueBArray[2].includes('.')) {
+            decimalEntered = true;
+          } else {
+            displayValueB += `${button.textContent}`;
+            decimalEntered = true;
+          }
+
+        }
         //displayValueB += floatButton.textContent;
         numButtonDisplay.textContent = `${displayValueB}`;
         return;
       }
 
       if (!decimalEntered) {
+
         displayValueB += floatButton.textContent;
         numButtonDisplay.textContent = `${displayValueB}`;
         decimalEntered = true;
@@ -222,6 +235,7 @@ function equalButtonActivate(button) {
   operationSign = 0;
   console.log(arrayNum)
   console.log(displayValueB.includes('.'));
+
   if (displayValueB.includes('.')) {
     decimalEntered = 1;
   }
@@ -233,4 +247,3 @@ function equalButtonActivate(button) {
 
 //---------------------------------------------------------
 //Negatif number first is being working on
-//decimal number after operation and also in arrayNum[2]. If number have decimal after the result operation or in arrayNum index 2; been working on.
