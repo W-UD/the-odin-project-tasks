@@ -109,13 +109,39 @@ operatorButton.forEach(button => displayButton(button));
 
 clearButton.addEventListener('click', () => equalButtonActivate(clearButton));
 
-//Equal Button
 equalButton.addEventListener('click', () => {
   return equalButtonActivate(equalButton);
 });
 
-//float button
 floatButton.addEventListener('click', displayButton(floatButton) );
+
+//BACKSPACE
+backspaceButton.addEventListener('click', () => {
+  let displayValueBArray = displayValueB.split(' | ');
+  if (displayValueBArray.length === 3) {
+
+    if (displayValueBArray[2] === '') {
+      displayValueBArray.splice(1, 2);
+      displayValueB = displayValueBArray.join(' | ');
+      operationSign = 0;
+    } else {
+      operationSign = 0;
+      displayValueBArray.pop();
+      displayValueB = displayValueBArray.join(' | ') + ' | ';
+      
+    }
+
+  } else {
+    displayValueBArray.pop();
+    displayValueB = displayValueBArray.join(' | ');
+    console.log(displayValueB);
+
+  }
+
+  //displayValueBArray.pop();
+  //displayValueB = displayValueBArray;
+  numButtonDisplay.textContent = displayValueB;
+});
 
 //Activate EqualButton function to also be used on another buttons of operation
 function equalButtonActivate(button) {
@@ -193,3 +219,5 @@ function equalButtonActivate(button) {
 //Negatif number first is being working on
 //decimal after operation
 //string for operator display
+
+//been working on is BACKSPACE
