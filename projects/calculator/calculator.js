@@ -70,9 +70,9 @@ function displayButton(button) {
       }
 
     } else if (button.textContent === '+' || button.textContent === '-' || button.textContent === '*' || button.textContent === '/') {
-
+      //working on
       if (operationSign === 0) {
-        displayValueB +=  ` | ${button.textContent} | `;
+        displayValueB +=  ` ${button.textContent} `;
         operationSign = 1;
 
       } else if (operationSign === 1) {
@@ -117,16 +117,16 @@ floatButton.addEventListener('click', displayButton(floatButton) );
 
 //BACKSPACE
 backspaceButton.addEventListener('click', () => {
-  let displayValueBArray = displayValueB.split(' | ');
+  let displayValueBArray = displayValueB.split(' ');
   if (displayValueBArray.length === 3) {
 
     if (displayValueBArray[2] === '') {
       displayValueBArray.splice(1, 2);
-      displayValueB = displayValueBArray.join(' | ');
+      displayValueB = displayValueBArray.join(' ');
       operationSign = 0;
 
     } else {
-      displayValueB = displayValueBArray.join(' | ');
+      displayValueB = displayValueBArray.join(' ');
 
       displayValueB = displayValueB.slice(0, displayValueB.length - 1);
 
@@ -135,7 +135,7 @@ backspaceButton.addEventListener('click', () => {
     }
 
   } else {
-    displayValueB = displayValueBArray.join(' | ');
+    displayValueB = displayValueBArray.join(' ');
 
     displayValueB = displayValueB.slice(0, displayValueB.length - 1);
 
@@ -148,7 +148,7 @@ backspaceButton.addEventListener('click', () => {
 //Activate EqualButton function to also be used on another buttons of operation
 function equalButtonActivate(button) {
   let arrayNum = [];
-  let splitDisplayValueB = displayValueB.split(' | ');
+  let splitDisplayValueB = displayValueB.split(' ');
 
   console.log(splitDisplayValueB);
   console.log(Array.isArray(splitDisplayValueB));
@@ -174,24 +174,25 @@ function equalButtonActivate(button) {
     } else if (button.textContent === 'clear') {
       numButtonDisplay.textContent = '';
       displayValueB = numButtonDisplay.textContent;
+      decimalEntered = false;
 
 
     } else if (button.textContent === '*' || button.textContent === '/' || button.textContent === '-' | button.textContent === '+') {
       
-      let displayValueBArray = displayValueB.split(' | ');
+      let displayValueBArray = displayValueB.split(' ');
       if (displayValueBArray[2] === '') {
 
-        numButtonDisplay.textContent = displayValueBArray[0] + ' | ' + button.textContent + ' | ';
+        numButtonDisplay.textContent = displayValueBArray[0] + ' ' + button.textContent + ' ';
         displayValueB = numButtonDisplay.textContent;
 
       } else {
-        numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' | ' + button.textContent + ' | ';
+        numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' ' + button.textContent + ' ';
         displayValueB = numButtonDisplay.textContent;
         
       }
 
     } else {
-      numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' | ' + button.textContent + ' | ';
+      numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]) + ' ' + button.textContent + ' ';
       displayValueB = numButtonDisplay.textContent;
 
     }
@@ -215,9 +216,10 @@ function equalButtonActivate(button) {
   }
   
   operationSign = 0;
+  decimalEntered = false;
 }
 
 //---------------------------------------------------------
 //Negatif number first is being working on
-//decimal after operation
+//decimal after operation: number + '.' + number = if '.', still active;
 //string for operator display
