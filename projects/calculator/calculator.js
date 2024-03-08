@@ -37,7 +37,7 @@ function operate(firsNumber, operator, secondNumber) {
   }
 }
 
-console.log(operate(firsNumber, secondNumber, operator));
+//console.log(operate(firsNumber, secondNumber, operator));
 
 //Button Access
 const numButton = document.querySelectorAll('.num-button');
@@ -131,8 +131,6 @@ backspaceButton.addEventListener('click', () => {
       displayValueB = displayValueB.slice(0, displayValueB.length - 1);
 
       operationSign = 0;
-      //displayValueBArray.pop();
-      //displayValueB = displayValueBArray.join(' | ') + ' | ';
       
     }
 
@@ -144,8 +142,6 @@ backspaceButton.addEventListener('click', () => {
     operationSign = 0;
   }
 
-  //displayValueBArray.pop();
-  //displayValueB = displayValueBArray;
   numButtonDisplay.textContent = displayValueB;
 });
 
@@ -225,5 +221,3 @@ function equalButtonActivate(button) {
 //Negatif number first is being working on
 //decimal after operation
 //string for operator display
-
-//been working on is BACKSPACE
