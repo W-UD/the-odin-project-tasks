@@ -220,6 +220,14 @@ function equalButtonActivate(button) {
   }
   
   operationSign = 0;
+  console.log(arrayNum)
+  console.log(displayValueB.includes('.'));
+  if (displayValueB.includes('.')) {
+    decimalEntered = 1;
+  }
+  else {
+    decimalEntered = 0;
+  }
   //decimalEntered = false;
 }
 
