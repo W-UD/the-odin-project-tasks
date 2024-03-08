@@ -225,3 +225,4 @@ function equalButtonActivate(button) {
 
 //---------------------------------------------------------
 //Negatif number first is being working on
+//decimal number after operation and also in arrayNum[2]. If number have decimal after the result operation or in arrayNum index 2; been working on.
