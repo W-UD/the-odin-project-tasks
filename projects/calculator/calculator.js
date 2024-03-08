@@ -124,18 +124,24 @@ backspaceButton.addEventListener('click', () => {
       displayValueBArray.splice(1, 2);
       displayValueB = displayValueBArray.join(' | ');
       operationSign = 0;
+
     } else {
+      displayValueB = displayValueBArray.join(' | ');
+
+      displayValueB = displayValueB.slice(0, displayValueB.length - 1);
+
       operationSign = 0;
-      displayValueBArray.pop();
-      displayValueB = displayValueBArray.join(' | ') + ' | ';
+      //displayValueBArray.pop();
+      //displayValueB = displayValueBArray.join(' | ') + ' | ';
       
     }
 
   } else {
-    displayValueBArray.pop();
     displayValueB = displayValueBArray.join(' | ');
-    console.log(displayValueB);
 
+    displayValueB = displayValueB.slice(0, displayValueB.length - 1);
+
+    operationSign = 0;
   }
 
   //displayValueBArray.pop();
