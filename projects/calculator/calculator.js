@@ -63,6 +63,10 @@ function displayButton(button) {
         displayValueB = '';
         operationSign = 0;
 
+      } else if (button.textContent === '.') {
+        displayValueB = `${button.textContent}`;
+        decimalEntered = true;
+
       } else {
         displayValueB = `${button.textContent}`;
         operationSign = 0;
@@ -216,10 +220,8 @@ function equalButtonActivate(button) {
   }
   
   operationSign = 0;
-  decimalEntered = false;
+  //decimalEntered = false;
 }
 
 //---------------------------------------------------------
 //Negatif number first is being working on
-//decimal after operation: number + '.' + number = if '.', still active;
-//string for operator display
