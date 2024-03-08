@@ -23,6 +23,7 @@ let firsNumber = 0;
 let secondNumber = 0;
 let operator = '';
 let operationSign = 0;
+let decimalEntered = false;
 
 function operate(firsNumber, operator, secondNumber) {
   if (operator === '+') {
@@ -38,7 +39,7 @@ function operate(firsNumber, operator, secondNumber) {
 
 console.log(operate(firsNumber, secondNumber, operator));
 
-//Num Button access
+//Button Access
 const numButton = document.querySelectorAll('.num-button');
 const numButtonDisplay = document.querySelector('.num-button-display');
 
@@ -46,9 +47,13 @@ const equalButton = document.querySelector('#equal-button');
 const operatorButton = document.querySelectorAll('.operator-button');
 const clearButton = document.querySelector('#clear-button');
 
+const floatButton = document.querySelector('#float-button');
+const backspaceButton = document.querySelector('#backspace-button');
+
 
 let displayValueB = '';
 
+//Input Display
 function displayButton(button) { 
   button.addEventListener('click', () => {
     if (displayValueB === '' || displayValueB === '0') {
@@ -75,9 +80,24 @@ function displayButton(button) {
         operationSign = 1;
       }
 
+    } else  if (button.textContent === '.') {
+
+      if (decimalEntered) {
+        //displayValueB += floatButton.textContent;
+        numButtonDisplay.textContent = `${displayValueB}`;
+        return;
+      }
+
+      if (!decimalEntered) {
+        displayValueB += floatButton.textContent;
+        numButtonDisplay.textContent = `${displayValueB}`;
+        decimalEntered = true;
+      }
+
     } else {
       displayValueB +=  `${button.textContent}`;
     }
+
     numButtonDisplay.textContent = displayValueB;
   });
 }
@@ -86,52 +106,16 @@ function displayButton(button) {
 numButton.forEach((button) => displayButton(button));
 
 operatorButton.forEach(button => displayButton(button));
+
 clearButton.addEventListener('click', () => equalButtonActivate(clearButton));
 
 //Equal Button
 equalButton.addEventListener('click', () => {
   return equalButtonActivate(equalButton);
- // operationSign = 0;
-  
-//   let arrayNum = [];
-//   let splitDisplayValueB = displayValueB.split(' | ');
-
-//   console.log(splitDisplayValueB);
-//   console.log(Array.isArray(splitDisplayValueB));
-
-//   splitDisplayValueB.forEach((item) => {
-//     const number = Number(item);
-//     console.log(number);
-
-//     if (!isNaN(number)) {
-//       arrayNum.push(number);
-//     } else {
-//       arrayNum.push(item);
-//     }
-//     console.log(arrayNum);
-//   });
-
-//   //arrayNum = [];
-//   function getOperating() {
-//     numButtonDisplay.textContent = operate(arrayNum[0], arrayNum[1], arrayNum[2]);
-//     displayValueB = '';
-//   }
-  
-//   if (arrayNum[1] === '+') {
-//     return getOperating();
-    
-//   } else if (arrayNum[1] === '/') {
-//     return getOperating();
-    
-//   } else if (arrayNum[1] === '*') {
-//     return getOperating();
-    
-//   } else if (arrayNum[1] === '-') {
-//     return getOperating();
-//   }
-  
-//   operationSign = 0;
 });
+
+//float button
+floatButton.addEventListener('click', displayButton(floatButton) );
 
 //Activate EqualButton function to also be used on another buttons of operation
 function equalButtonActivate(button) {
@@ -160,7 +144,7 @@ function equalButtonActivate(button) {
       displayValueB = numButtonDisplay.textContent;
       
     } else if (button.textContent === 'clear') {
-      numButtonDisplay.textContent = '0';
+      numButtonDisplay.textContent = '';
       displayValueB = numButtonDisplay.textContent;
 
 
@@ -204,3 +188,8 @@ function equalButtonActivate(button) {
   
   operationSign = 0;
 }
+
+//---------------------------------------------------------
+//Negatif number first is being working on
+//decimal after operation
+//string for operator display
