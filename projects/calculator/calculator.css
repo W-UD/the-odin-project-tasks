@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   padding: 10px 8px;
-  background-color: rgba(0, 0, 0, 0.627);
+  background-color: rgba(57, 24, 206, 0.826);
 }
 
 .cal-row,
@@ -28,6 +28,7 @@
   margin: 0 auto;
   display: flex;
   padding: 2px;
+  gap: 2px;
 }
 
 .num-button,
@@ -36,9 +37,13 @@
 .operator-button,
 #float-button,
 #backspace-button {
-  border: 2px solid gray;
+  /*border: 2px solid gray;*/
+  border: 2px solid rgba(11, 233, 249, 0.641);
+  background-color: rgb(90, 92, 11);
   border-radius: 10px;
   flex: 1;
+  color: rgba(236, 119, 119, 0.94);
+  font-size: 17px;
 }
 
 #float-button {
@@ -47,8 +52,9 @@
 }
 
 #display-container {
-  background-color: rgb(240, 240, 240);
-  border: 2px solid gray;
+  border: 2px solid rgb(33, 167, 177);
+  background-color: rgba(240, 52, 52, 0.849);
+  /*border: 2px solid gray;*/
   border-radius: 15px;
   margin-top: 6px;
 }
@@ -56,9 +62,9 @@
   flex: 1;
   width: 100%;
   margin: auto;
-  background-color: inherit;
+ /* background-color: inherit;*/
   text-align: center;
   font-size: 22px;
   font-weight: 7600;
-  color: rgb(97, 5, 6);
+  color: rgba(149, 242, 194, 0.807);
 }

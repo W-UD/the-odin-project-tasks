@@ -55,7 +55,7 @@ function devide(one, two) {
     
     return addResultl;
   }
-  
+
 }
 
 console.log(add(1, 2));
@@ -290,4 +290,4 @@ function equalButtonActivate(button) {
 }
 
 //---------------------------------------------------------
-//Negatif number first is being working on
+//Negatif number on the second number is being working on
