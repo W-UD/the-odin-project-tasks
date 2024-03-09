@@ -1,17 +1,61 @@
 
 function add(one, two) {
-  return one + two;
+
+  const addResultl = one + two;
+  
+  if (addResultl.toString().includes('.')) {
+    
+    return addResultl.toFixed(2);
+    
+  } else {
+    
+    return addResultl;
+  }
+  
 }
 function substract(one, two) {
-  return one - two;
+  
+  const addResultl = one - two;
+
+  if (addResultl.toString().includes('.')) {
+
+    return addResultl.toFixed(2);
+
+  } else {
+    
+    return addResultl;
+  }
+
 }
 
 function multiply(one, two) {
-  return one * two;
+
+  const addResultl = one * two;
+
+  if (addResultl.toString().includes('.')) {
+
+    return addResultl.toFixed(2);
+
+  } else {
+    
+    return addResultl;
+  }
+
 }
 
 function devide(one, two) {
-  return one / two;
+
+  const addResultl = one / two;
+
+  if (addResultl.toString().includes('.')) {
+
+    return addResultl.toFixed(2);
+
+  } else {
+    
+    return addResultl;
+  }
+  
 }
 
 console.log(add(1, 2));
