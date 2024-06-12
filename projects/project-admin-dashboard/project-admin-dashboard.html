@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Admin Dashboard</title>
+
+    <style>
+      body {
+        background-color: rgb(202, 189, 189);
+      }
+
+      h1 {
+        font-size: 23px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 19px;
+        font-style: italic;
+      }
+
+      /* CONTAINER */
+      .container {
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        /* gap: 5px; */
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        /* box-sizing: border-box; */
+        /* border: 1px solid #000; */
+        padding: 20px;
+        background-color: rgb(61, 83, 249);
+        color: white;
+
+        display: grid;
+        width: 20vw;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 4fr 2fr 4fr;
+        /* justify-items: center; */
+        justify-content: center;
+        gap: 10px;
+        
+        /* position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0; */
+      }
+      
+      .sidebar > div {
+        border-bottom: 2px solid #000;
+        width: 100%;
+        font-size: 17px;
+        /* border: 1px solid #c31a1a; */
+        /* background-color: lightcoral; */
+
+        display: grid;
+        grid-template-columns: 1fr;
+        /* justify-items: center; */
+        justify-content: center;
+        align-items: center;
+        /* gap: 0px; */
+      }
+
+      /* .sidebar > div > div {
+        border: 1px solid #000;
+      } */
+      .sidebar img {
+        height: 50%;
+        width: 70%;
+        border: 1px solid #000;
+      }
+
+      .sidebar-child-top > div, .sidebar-child-middle > div, .sidebar-child-bottom > div {
+        /* font-size: 20px; */
+        font-weight: bold;
+        align-items: center;
+        justify-content: center;
+
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 5px;
+      }
+
+      .sidebar-child-top > div {
+        font-size: 24px;
+        color: #000;
+      }
+
+      .sidebar-child-top > div > div:not(:last-child) {
+        /* border: 1px solid #000; */
+        display: grid;
+        align-content: stretch;
+        align-items: center;
+        justify-content: stretch;
+      }
+
+      .sidebar-child-top img {
+        width: 100%;
+        height: 100%;
+      }
+
+
+      /* --------------------- */
+
+      /* MAIN BAR */
+
+      .main-bar {
+        display: grid;
+        gap: 20px;
+      }
+
+      /* HEADER */
+      .header {
+        /* border: 1px solid #000; */
+        box-shadow: 4px 4px 3px rgb(111, 102, 102);
+        background-color: white;
+
+        display: grid;
+        align-items: center;
+        /* gap: 20px; */
+      }
+
+      .header-child {
+        padding: 5px;
+        /* border: 1px solid #000; */
+
+        display: grid;
+        grid-template-columns: auto 4fr auto auto auto;
+        /* grid-template-rows: repeat(2, 1fr); */
+        align-items: center;
+        align-content: center;
+
+
+        gap: 10px;
+      }
+
+      /* .header-child > div {
+        border: 1px solid #000;
+      } */
+
+      .header-child-top > .header-top-icon, .header-child-bottom > .header-bottom-icon {
+        /* border: 1px solid #810f0f; */
+        display: grid;
+        justify-items: right;
+        align-self: center;
+        align-content: center;
+        align-items: center;
+
+        height: 50%;
+      }
+
+      .header-child > div > img {
+        /* display: block; */
+        /* border: 1px solid #7e0909; */
+        width: 80%;
+        height: 40%;
+      }
+
+      /* .header-child .search-input {
+        border: 1px solid #851515;
+      } */
+
+      .search-input > input {
+        width: 100%;
+        background-color: rgb(202, 189, 189);
+        border-radius: 5px;
+        border: none;
+        padding: 5px;
+        /* height: 100%; */
+      }
+
+      /* header bottom */
+      .profile > div {
+        font-weight: bold;
+      }
+
+      .profile .name {
+        font-size: 22px;
+      }
+
+      .posting-menu {
+        color: white;
+        background-color: rgb(25, 77, 207);
+        padding: 10px;
+        border-radius: 18px;
+        border: none;
+
+      }
+
+      /* ------------------------ */
+
+      /* CONTENT */
+      .content {
+        /* border: 1px solid #000; */
+        /* background-color: white; */
+
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 10px;
+      }
+
+      .content > div {
+        /* border: 1px solid #000; */
+        padding: 10px;
+
+        gap: 20px;
+      }
+
+      .announcements-title, .trending-title, .content-title {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #000000ed;
+        
+      }
+      
+      .content-child:first-child {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto repeat(3, 2fr);
+        grid-auto-flow: row;
+        justify-content: center;
+        /* gap: 10px; */
+      }
+
+      .content-title {
+        grid-column: 1 / 3;
+        /* border: 1px solid #000; */
+        padding: 10px;
+      }
+      
+
+      .content-child:nth-child(2) {
+        display: grid;
+        /* grid-template-rows: max-content 3fr 3fr; */
+        grid-template-rows: repeat(2, 1fr);
+        /* gap: 10px; */
+      }
+
+      .status {
+        /* border: 1px solid #000; */
+        border-left: 8px solid orange;
+        display: grid;
+        grid-template-rows: auto 3fr auto;
+      }
+
+      /* .status > div {
+        border: 1px solid #000;
+      } */
+      
+      .status, .announcements-contents, .trending-contents {
+        box-shadow: 2px 2px 3px gray;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 10px;        
+      }
+
+      .status > :nth-child(1) {
+        font-weight: bold;
+      }
+
+      .response-icon {
+        height: 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        /* gap: 2px; */
+        justify-items: right;
+        justify-content: right;
+      }
+
+      .response-icon > div {
+        display: grid;
+        grid-template-rows: auto;
+        justify-items: center;
+        justify-content: right;
+        align-items: center;
+
+        /* border: 1px solid #000; */
+      }
+
+      .response-icon img {
+        /* border: 1px solid #000; */
+        display: block;
+        height: 50%;
+        width: 65%;
+      }
+
+
+      /* ANNOUNCEMENTS AND TRENDING */
+
+      .announcements, .trending {
+        /* border: 1px solid #000; */
+        display: grid;
+        grid-template-rows: max-content 1fr;
+        grid-gap: 15px;
+
+      }
+      
+      /* .announcements > div, .trending > div {
+        border: 1px solid #000;
+      } */
+      
+      .announcements-contents, .trending-contents {
+        /* border: 1px solid #000; */
+        padding: 10px;
+        
+        display: grid;
+        gap: 15px;
+
+        /* connect to .status also */
+      }
+
+      .announcements-contents-child {
+        display: grid;
+        grid-template-rows: max-content 1fr;
+        grid-auto-flow: row;
+        /* gap: 10px; */
+        border-bottom: 1px solid #242121;
+        /* border: 1px solid #000; */
+      }
+
+      .announcements-contents-child > div:first-child {
+        font-weight: bold;
+      }
+      
+      .trending-contents-child {
+        display: grid;
+        grid-template-columns: auto 4fr;
+        /* grid-auto-flow: row; */
+        gap: 10px;
+        border-bottom: 1px solid #242121;
+        /* border: 1px solid #000; */
+      }
+
+      .trending-contents-child > .profile-photo {
+        /* border: 1px solid #000; */
+        display: grid;
+        /* justify-content: start; */
+        /* justify-items: center; */
+        /* align-items: start; */
+        align-content: center;
+        width: 50px;
+      }
+
+
+      /* --------------------------- */
+
+      /* MEDIA QUERIES */
+      @media screen and (max-width: 670px) {
+        .container {
+          grid-template-columns: auto;
+        }
+
+        .sidebar {
+          width: 100vw;
+          grid-template-rows: auto repeat(2, 1fr) auto;
+
+          margin-bottom: 30px;
+        }
+
+        .sidebar > div:last-child {
+          display: none;
+        }
+
+        .content {
+          grid-template-columns: auto;
+        }
+
+        .content-title {
+          grid-row: 1 / 2;
+          grid-column: 1 / 2;
+        }
+
+        .content-child:first-child {
+         grid-template-columns: 1fr;
+         grid-template-rows: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <h1>Project Admin Dashboard</h1> -->
+
+    <!-- SIDEBAR -->
+    <div class="container">
+      <div class="sidebar">
+        <div class="sidebar-child-top">
+          <div class="dashboard">
+            <div>
+              <img src="project-dashboard-asset/view-dashboard.svg" alt="dashboard">
+            </div>
+            <div>Dashboard</div>
+          </div>
+        </div>
+        <div class="sidebar-child-middle">
+          <div class="home">
+            <div>
+              <img src="project-dashboard-asset/home-account.svg" alt="home">
+            </div>
+            <div>Home</div>
+          </div>
+          <div class="profile">
+            <div>
+              <img src="project-dashboard-asset/face-man-profile.svg" alt="profile">
+            </div>
+            <div>Profile</div>
+          </div>
+          <div class="messages">
+            <div>
+              <img src="project-dashboard-asset/message-bulleted.svg" alt="messages">
+            </div>
+            <div>Messages</div>
+          </div>
+          <div class="history">
+            <div>
+              <img src="project-dashboard-asset/history.svg" alt="history">
+            </div>
+            <div>History</div>
+          </div>
+          <div class="tasks">
+            <div>
+              <img src="project-dashboard-asset/calendar-check.svg" alt="tasks">
+            </div>
+            <div>Tasks</div>
+          </div>
+          <div class="community">
+            <div>
+              <img src="project-dashboard-asset/account-group-outline.svg" alt="communities">
+            </div>
+            <div>Comunities</div>
+          </div>
+        </div>
+        <div class="sidebar-child-bottom">
+          <div class="settings">
+            <div>
+              <img src="project-dashboard-asset/cog.svg" alt="settings">
+            </div>
+            <div>Settings</div>
+          </div>
+          <div class="support">
+            <div>
+              <img src="project-dashboard-asset/help-box-multiple.svg" alt="support">
+            </div>
+            <div>Support</div>
+          </div>
+          <div class="privacy">
+            <div>
+              <img src="project-dashboard-asset/shield-account.svg" alt="">
+            </div>
+            <div>Privacy</div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+
+      <!-- ------------------- -->
+
+      <!-- MAINBAR -->
+
+      <div class="main-bar">
+
+        <!-- HEADER -->
+        <div class="header">
+          <div class="header-child header-child-top">
+            <div class="header-top-icon">
+              <img src="project-dashboard-asset/magnify.svg" alt="search">
+            </div>
+            <div class="search-input">
+              <input type="search" name="search" id="search">
+            </div>
+            <div class="header-top-icon">
+              <img src="project-dashboard-asset/bell.svg" alt="bell">
+            </div>
+            <div class="header-top-icon">
+              <img src="project-dashboard-asset/face-man-profile.svg" alt="">
+            </div>
+            <div class="profile-name">Profile Name</div>
+          </div>
+          <div class="header-child header-child-bottom">
+            <div class="header-bottom-icon">
+              <img src="project-dashboard-asset/face-man-profile.svg" alt="profile photo">
+            </div>
+            <div class="profile">
+              <div class="greet">hi, there</div>
+              <div class="name">Profile name</div>
+            </div>
+            <div class="posting-menu">New</div>
+            <div class="posting-menu">Upload</div>
+            <div class="posting-menu">Share</div>
+          </div>
+        </div>
+
+        <!-- CONTENT-->
+        <div class="content">
+          <div class="content-child">
+            <div class="content-title">Your Project</div>
+            <div class="status">
+              <div>Super Cool Project</div>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis enim error rerum aperiam adipisci fugit cupiditate eligendi nulla earum aut magni corrupti, nobis est voluptatum commodi eum sapiente laudantium temporibus!</p>
+              <div class="response-icon">
+                <div>
+                  <img src="project-dashboard-asset/thumb-up.svg" alt="thumbs">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/eye-plus.svg" alt="view">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/share-all.svg" alt="share">
+                </div>
+              </div>
+            </div>
+            <div class="status">
+              <div>Less Cool Project</div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet provident animi, veritatis corporis quae perspiciatis cupiditate fuga alias nesciunt, in, quasi fugit consequatur libero. Accusantium omnis fuga delectus sit itaque!</p>
+              <div class="response-icon">
+                <div>
+                  <img src="project-dashboard-asset/thumb-up.svg" alt="thumbs">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/eye-plus.svg" alt="view">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/share-all.svg" alt="share">
+                </div>
+              </div>
+            </div>
+            <div class="status">
+              <div>Impossible App</div>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis at id earum, neque consectetur necessitatibus tempore voluptates veniam excepturi optio delectus sed maiores iusto nulla temporibus esse voluptas! Rerum, enim.</p>
+              <div class="response-icon">
+                <div>
+                  <img src="project-dashboard-asset/thumb-up.svg" alt="thumbs">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/eye-plus.svg" alt="view">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/share-all.svg" alt="share">
+                </div>
+              </div>
+            </div>
+            <div class="status">
+              <div>Easy Peasy App</div>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugiat praesentium magni assumenda inventore enim explicabo maiores, expedita officia qui possimus ullam nesciunt, sed molestias adipisci debitis eum vel quos.</p>
+              <div class="response-icon">
+                <div>
+                  <img src="project-dashboard-asset/thumb-up.svg" alt="thumbs">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/eye-plus.svg" alt="view">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/share-all.svg" alt="share">
+                </div>
+              </div>
+            </div>
+            <div class="status">
+              <div>Ad Blocker</div>
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non accusamus nihil est dicta? Doloremque explicabo ratione neque, ducimus eveniet nihil quod officiis quisquam nulla cum incidunt pariatur repudiandae, expedita dicta.</p>
+              <div class="response-icon">
+                <div>
+                  <img src="project-dashboard-asset/thumb-up.svg" alt="thumbs">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/eye-plus.svg" alt="view">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/share-all.svg" alt="share">
+                </div>
+              </div>
+            </div>
+            <div class="status">
+              <div>Money Maker</div>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit deserunt iure expedita vitae! Deleniti quis suscipit aperiam dolores itaque sit, nihil sapiente repellat, nisi laborum molestias velit commodi labore repellendus?</p>
+              <div class="response-icon">
+                <div>
+                  <img src="project-dashboard-asset/thumb-up.svg" alt="thumbs">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/eye-plus.svg" alt="view">
+                </div>
+                <div>
+                  <img src="project-dashboard-asset/share-all.svg" alt="share">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-child">
+            <div class="announcements">
+              <div class="announcements-title">Announcements</div>
+              <div class="announcements-contents">
+                <div class="announcements-contents-child">
+                  <div>Site Maintainance</div>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, iste?</p>
+                </div>
+                <div class="announcements-contents-child">
+                  <div>Comunity Share Day</div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus, iste!
+                  </p>
+                </div>
+                <div class="announcements-contents-child">
+                  <div>Updated Privacy Poolicy</div>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, recusandae!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="trending">
+              <div class="trending-title">Trending</div>
+              
+              <div class="trending-contents">
+                <div class="trending-contents-child">
+                  <div class="profile-photo">
+                    <img src="project-dashboard-asset/face-man-profile.svg" alt="profil photo">
+                  </div>
+                  <div>
+                    <div>@name1</div>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                  </div>
+                </div>
+                <div class="trending-contents-child">
+                  <div class="profile-photo">
+                    <img src="project-dashboard-asset/face-woman-profile.svg" alt="profil photo">
+                  </div>
+                  <div>
+                    <div>@name2</div>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                  </div>
+                </div>
+                <div class="trending-contents-child">
+                  <div class="profile-photo">
+                    <img src="project-dashboard-asset/face-man-profile.svg" alt="profile photo">
+                  </div>
+                  <div>
+                    <div>@name3</div>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                  </div>
+                </div>
+                <div class="trending-contents-child">
+                  <div class="profile-photo">
+                    <img src="project-dashboard-asset/face-woman-profile.svg" alt="profile">
+                  </div>
+                  <div>
+                    <div>@name4</div>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </body>
+</html>
