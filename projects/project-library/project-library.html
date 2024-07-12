@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Library</title>
+
+    <style>
+      h1 {
+        font-size: 23px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 19px;
+        font-style: italic;
+      }
+
+      .book {
+        padding: 20px;
+        background-color: #5067889a;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        justify-items: center;
+      }
+
+      .book-list-detail {
+        width: 80%;
+        /* border: 5px solid #c1b54f; */
+        border-left: 5px solid #817708;
+        /* border-left: 5px solid #373200; */
+        padding: 20px;
+        text-align: center;
+
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: space-between;
+
+        box-shadow: 5px 5px 2px #d4c752;
+        background-color: rgb(49, 49, 171);
+        color: rgba(227, 221, 221, 0.946);
+
+        border-bottom-right-radius: 30px;
+        border-top-left-radius: 30px;
+      }
+
+      .book-list-detail > ul {
+        list-style: none;
+        /* text-align: left; */
+        padding: 10px;
+        border: 2px solid #00000033;
+
+      }
+      
+      /* li styling */
+      .book-list-detail > ul > li {
+        /* border: 1px solid #000; */
+        margin-bottom: 10px;
+
+        display: flex;
+        gap: 18px;
+        font-size: 20px;
+        font-style: italic;
+      }
+
+      .book-button-container {
+        display: flex;
+        gap: 20px;
+      }
+
+      .book-button-container > button, .add-book-button {
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        outline: none;
+        background-color: #0a493a;
+        color: rgba(255, 255, 255, 0.891);
+        
+        padding: 10px;
+        border-radius: 10px;
+      }
+
+      /* book item buttons */
+      .delete-book-item, .read-book-item {
+        display: block;
+      }
+
+      /* add book button */
+      .add-book-button {
+        display: block;
+        margin: 20px auto;
+        width: 100%;
+        color: rgba(255, 255, 255, 0.722);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Project Library</h1>
+
+    <h2>List Books</h2>
+    <div class="book">
+    </div>
+
+    <dialog class="dialog-form">
+      <form method="dialog">
+        <p>
+          <label for="title">title</label>
+          <input type="text" id="title">
+        </p>
+
+        <p>
+          <label for="author">author</label>
+          <input type="author" id="author">
+        </p>
+
+        <p>
+          <label for="year">year</label>
+          <input type="number" id="year">
+        </p>
+        <p>
+          <input type="submit" name="submit" id="submit">
+        </p>
+      </form>
+    </dialog>
+
+    <button class="add-book-button">Add book</button>
+
+
+    <script>
+
+      // getting acces to elements
+      const book = document.querySelector('.book');
+      const addBook = document.querySelector('.add-book-button');
+
+      
+      // ----------------
+      const myLibrary = [
+        {
+          title: 'The Improv Handbook: The Ultimate Guide to Improvising in Comedy, Theatre, and Beyond',
+          year: '2008',
+          author: 'Tom Salinsky, Deborah Frances-White'
+        },
+        {
+          title: 'The Upright Citizen Brigade Comedy Improvisation Manual',
+          year: '2024',
+          author: 'Matt Besser, Ian Robert, Matt Walsh'
+        },
+      ];
+    
+      // Loop Through Mylibrary
+      function item1(item, index, array) {
+        // book.replaceChild(book.childNodes);
+        let title = item.title;
+        let year = item.year;
+        let author = item.author;
+
+        // create list for the books
+        const bookListDetail = document.createElement('div');
+        bookListDetail.classList.add('book-list-detail');
+        bookListDetail.id = `${index}`;
+        bookListDetail.innerHTML = `
+                        <ul>
+                          <li>
+                            <span>title:</span>
+                            <span>${title}</span>
+                          </li>
+                          <li>
+                            <span>author:</span>
+                            <span>${author}</span>
+                          </li>
+                          <li>
+                            <span>year:</span>
+                            <span>${year}</span>
+                          </li>
+                        </ul>
+                      `;
+
+        // button for delete the book from the list
+        const bookButtonContainer = document.createElement('div');
+        bookButtonContainer.classList.add('book-button-container');
+        bookListDetail.appendChild(bookButtonContainer);
+
+        const bookButton = document.createElement('button');
+        bookButton.classList.add('delete-book-item');
+        bookButton.id = `num${index}`;
+        bookButton.innerText = 'del';
+
+        const bookButton2 = document.createElement('button');
+        bookButton2.classList.add('read-book-item');
+        bookButton2.innerText = 'mark as read';
+
+        book.appendChild(bookListDetail);
+        bookButtonContainer.appendChild(bookButton);
+        bookButtonContainer.appendChild(bookButton2);
+
+        // myLibrary.forEach(item1);
+      }
+      myLibrary.forEach(item1);
+      
+      // Add book
+      addBook.addEventListener('click', () => {
+        const dialogForm = document.querySelector('.dialog-form');
+        dialogForm.showModal();
+        
+        // submit
+        const submit = document.querySelector('#submit');
+
+        
+        // clicked submit
+        submit.addEventListener('click', (event) => {
+
+          // getting acces to book lists and del button
+          // const fisrtBookList = document.querySelectorAll('.book-list-detail');
+          // const firstDelButton = document.querySelectorAll('.delete-book-item');
+
+          // // remove the firstList book and the del button
+          // fisrtBookList.forEach(item => {
+          //   item.parentNode.removeChild(item);
+          // });
+
+          // firstDelButton.forEach(item => {
+          //   item.parentNode.remove()
+          // });
+          
+          // getting access to input
+          const title = document.querySelector('#title');
+          const author = document.querySelector('#author');
+          const year = document.querySelector('#year');
+
+          // input value to object
+          let newBook = {
+            title: `${title.value}`,
+            author: `${author.value}`,
+            year: `${year.value}`,
+          }
+          
+          // Updating the myLibrary
+          myLibrary.push(newBook);
+          // let ul = document.querySelector('ul');
+
+          // acces bookListDetail in submit
+          const bookListDetail = document.querySelectorAll('.book-list-detail');
+          bookListDetail.forEach(item => item.parentNode.removeChild(item));
+
+          myLibrary.forEach(item1);
+          console.log(myLibrary);
+          
+          // remake add button
+          
+          
+          // delete and mark as read or not.
+          deleteBook();
+          markAsReadButton();
+          
+          event.preventDefault();
+          dialogForm.close();
+        });
+
+      });
+
+      // delete book button eventListener
+      function deleteBook() {
+        const deleteBookButton = document.querySelectorAll('.delete-book-item');
+        deleteBookButton.forEach((item, index, array) => {
+          item.addEventListener('click', (e) => {
+  
+            // // getting acces to book lists
+            // const bookListDetail = document.querySelectorAll('.book-list-detail');
+            
+            // delete book item chosen after clicking button 'del'.
+            e.target.parentNode.parentNode.remove();
+            myLibrary.splice(e.target.id, 1);
+            // myLibrary.forEach(item1);
+            // console.log(myLibrary)
+          });
+        });
+      }
+      deleteBook();
+
+      // mark as read button and its event
+      function markAsReadButton() {
+        const unRead = document.querySelectorAll('.read-book-item');
+        // dataseet for unread
+        unRead.forEach((item, index, array) => {
+          item.dataset.unRead = 've-read';
+        });
+
+        unRead.forEach((item, index, array) => {
+          item.addEventListener('click', (e) => {
+            if (!(e.target.innerText === 've-read')) {
+              e.target.innerText = e.target.dataset.unRead;
+            } else {
+              e.target.innerText = 'mark as read';
+            }
+          });
+        });
+      }
+      markAsReadButton();
+
+      // const unRead = document.querySelectorAll('.read-book-item');
+      // // dataseet for unread
+      // unRead.forEach((item, index, array) => {
+      //   item.dataset.unRead = 've-read';
+      // });
+
+      // unRead.forEach((item, index, array) => {
+      //   item.addEventListener('click', (e) => {
+      //     if (!(e.target.innerText === 've-read')) {
+      //       e.target.innerText = e.target.dataset.unRead;
+      //     } else {
+      //       e.target.innerText = 'mark as read';
+      //     }
+      //   });
+      // });
+
+    </script>
+  </body>
+</html>
