@@ -51,11 +51,11 @@
       }
 
       .book-list-detail > ul {
+        max-width: 70%;
         list-style: none;
         /* text-align: left; */
         padding: 10px;
         border: 2px solid #00000033;
-
       }
       
       /* li styling */
@@ -70,7 +70,11 @@
       }
 
       .book-button-container {
+        border: 2px solid #00000033;
+        padding: 5px;
+
         display: flex;
+        flex-direction: column;
         gap: 20px;
       }
 
@@ -108,7 +112,7 @@
     </div>
 
     <dialog class="dialog-form">
-      <form method="dialog">
+      <form class="form-field" method="dialog">
         <p>
           <label for="title">title</label>
           <input type="text" id="title">
@@ -124,6 +128,7 @@
           <input type="number" id="year">
         </p>
         <p>
+          <label for="submit">Submit</label>
           <input type="submit" name="submit" id="submit">
         </p>
       </form>
@@ -206,62 +211,46 @@
       // Add book
       addBook.addEventListener('click', () => {
         const dialogForm = document.querySelector('.dialog-form');
-        dialogForm.showModal();
+        dialogForm.showModal(); 
+      });
+      
+      // submit buttom acces
+      const submit = document.querySelector('#submit');
+      const dialogForm = document.querySelector('.dialog-form');
+      
+      // clicked submit
+      submit.addEventListener('click', (event) => {
+
+        // getting access to input
+        const titleForm = document.querySelector('#title');
+        const authorForm = document.querySelector('#author');
+        const yearForm = document.querySelector('#year');
+
+        // input value to object
+        let newBook = {
+          title: `${titleForm.value}`,
+          author: `${authorForm.value}`,
+          year: `${yearForm.value}`,
+        }
         
-        // submit
-        const submit = document.querySelector('#submit');
+        // Updating the myLibrary
+        myLibrary.push(newBook);
+        console.log(newBook);
 
+        // acces bookListDetail in submit then remove them
+        const bookListDetail = document.querySelectorAll('.book-list-detail');
+        bookListDetail.forEach(item => item.remove());
         
-        // clicked submit
-        submit.addEventListener('click', (event) => {
-
-          // getting acces to book lists and del button
-          // const fisrtBookList = document.querySelectorAll('.book-list-detail');
-          // const firstDelButton = document.querySelectorAll('.delete-book-item');
-
-          // // remove the firstList book and the del button
-          // fisrtBookList.forEach(item => {
-          //   item.parentNode.removeChild(item);
-          // });
-
-          // firstDelButton.forEach(item => {
-          //   item.parentNode.remove()
-          // });
-          
-          // getting access to input
-          const title = document.querySelector('#title');
-          const author = document.querySelector('#author');
-          const year = document.querySelector('#year');
-
-          // input value to object
-          let newBook = {
-            title: `${title.value}`,
-            author: `${author.value}`,
-            year: `${year.value}`,
-          }
-          
-          // Updating the myLibrary
-          myLibrary.push(newBook);
-          // let ul = document.querySelector('ul');
-
-          // acces bookListDetail in submit
-          const bookListDetail = document.querySelectorAll('.book-list-detail');
-          bookListDetail.forEach(item => item.parentNode.removeChild(item));
-
-          myLibrary.forEach(item1);
-          console.log(myLibrary);
-          
-          // remake add button
-          
-          
-          // delete and mark as read or not.
-          deleteBook();
-          markAsReadButton();
-          
-          event.preventDefault();
-          dialogForm.close();
-        });
-
+        myLibrary.forEach(item1);
+        console.log(myLibrary);
+        
+        
+        // delete and mark as read or not.
+        deleteBook();
+        markAsReadButton();
+        
+        event.preventDefault();
+        // dialogForm.close();
       });
 
       // delete book button eventListener
@@ -269,15 +258,12 @@
         const deleteBookButton = document.querySelectorAll('.delete-book-item');
         deleteBookButton.forEach((item, index, array) => {
           item.addEventListener('click', (e) => {
-  
-            // // getting acces to book lists
-            // const bookListDetail = document.querySelectorAll('.book-list-detail');
-            
+
             // delete book item chosen after clicking button 'del'.
             e.target.parentNode.parentNode.remove();
-            myLibrary.splice(e.target.id, 1);
+            myLibrary.splice(e.target.parentNode.parentNode.id, 1);
             // myLibrary.forEach(item1);
-            // console.log(myLibrary)
+            console.log(myLibrary)
           });
         });
       }
@@ -302,22 +288,6 @@
         });
       }
       markAsReadButton();
-
-      // const unRead = document.querySelectorAll('.read-book-item');
-      // // dataseet for unread
-      // unRead.forEach((item, index, array) => {
-      //   item.dataset.unRead = 've-read';
-      // });
-
-      // unRead.forEach((item, index, array) => {
-      //   item.addEventListener('click', (e) => {
-      //     if (!(e.target.innerText === 've-read')) {
-      //       e.target.innerText = e.target.dataset.unRead;
-      //     } else {
-      //       e.target.innerText = 'mark as read';
-      //     }
-      //   });
-      // });
 
     </script>
   </body>
