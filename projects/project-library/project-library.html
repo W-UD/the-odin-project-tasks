@@ -248,9 +248,13 @@
         // delete and mark as read or not.
         deleteBook();
         markAsReadButton();
+
+        // Reset form field
+        const formField = document.querySelector('.form-field');
+        formField.reset();
         
         event.preventDefault();
-        // dialogForm.close();
+        dialogForm.close();
       });
 
       // delete book button eventListener
