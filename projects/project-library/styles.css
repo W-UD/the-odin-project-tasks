@@ -1,0 +1,116 @@
+h1 {
+  font-size: 23px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 19px;
+  font-style: italic;
+}
+
+.book {
+  padding: 20px;
+  background-color: #5067889a;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  justify-items: center;
+}
+
+.book-list-detail {
+  width: 80%;
+  /* border: 5px solid #c1b54f; */
+  border-left: 5px solid #817708;
+  /* border-left: 5px solid #373200; */
+  padding: 20px;
+  text-align: justify;
+
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: 5px 5px 2px #d4c752;
+  background-color: rgb(49, 49, 171);
+  color: rgba(227, 221, 221, 0.946);
+
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+}
+
+.book-list-detail > ul {
+  width: 70%;
+  list-style: none;
+  /* text-align: left; */
+  padding: 10px;
+  border: 2px solid #00000033;
+}
+
+/* li styling */
+.book-list-detail > ul > li {
+  /* border: 1px solid #000; */
+  border-bottom: 2px solid #0000005c;
+  margin-bottom: 10px;
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  font-size: 20px;
+  font-style: italic;
+  padding: 5px;
+}
+
+.book-button-container {
+  border: 2px solid #00000033;
+  padding: 5px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.book-button-container > button, .add-book-button {
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  outline: none;
+  background-color: #0a493a;
+  color: rgba(255, 255, 255, 0.891);
+  
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* book item buttons */
+.delete-book-item, .read-book-item {
+  display: block;
+}
+
+/* add book button */
+.add-book-button {
+  display: block;
+  margin: 20px auto;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.722);
+}
+
+/* form field */
+.dialog-form {
+  width: 40%;
+  border-color: #5c0e0ede;
+  background-color: #259548;
+}
+
+.form-field > p {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+}
+
+.form-field input {
+  background-color: #e7e2e2;
+}

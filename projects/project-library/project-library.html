@@ -4,105 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Library</title>
-
-    <style>
-      h1 {
-        font-size: 23px;
-      }
-
-      h2 {
-        font-size: 20px;
-      }
-
-      h3 {
-        font-size: 19px;
-        font-style: italic;
-      }
-
-      .book {
-        padding: 20px;
-        background-color: #5067889a;
-
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-        justify-items: center;
-      }
-
-      .book-list-detail {
-        width: 80%;
-        /* border: 5px solid #c1b54f; */
-        border-left: 5px solid #817708;
-        /* border-left: 5px solid #373200; */
-        padding: 20px;
-        text-align: center;
-
-        display: flex;
-        gap: 5px;
-        align-items: center;
-        justify-content: space-between;
-
-        box-shadow: 5px 5px 2px #d4c752;
-        background-color: rgb(49, 49, 171);
-        color: rgba(227, 221, 221, 0.946);
-
-        border-bottom-right-radius: 30px;
-        border-top-left-radius: 30px;
-      }
-
-      .book-list-detail > ul {
-        max-width: 70%;
-        list-style: none;
-        /* text-align: left; */
-        padding: 10px;
-        border: 2px solid #00000033;
-      }
-      
-      /* li styling */
-      .book-list-detail > ul > li {
-        /* border: 1px solid #000; */
-        margin-bottom: 10px;
-
-        display: flex;
-        gap: 18px;
-        font-size: 20px;
-        font-style: italic;
-      }
-
-      .book-button-container {
-        border: 2px solid #00000033;
-        padding: 5px;
-
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .book-button-container > button, .add-book-button {
-        padding: 5px;
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        outline: none;
-        background-color: #0a493a;
-        color: rgba(255, 255, 255, 0.891);
-        
-        padding: 10px;
-        border-radius: 10px;
-      }
-
-      /* book item buttons */
-      .delete-book-item, .read-book-item {
-        display: block;
-      }
-
-      /* add book button */
-      .add-book-button {
-        display: block;
-        margin: 20px auto;
-        width: 100%;
-        color: rgba(255, 255, 255, 0.722);
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <h1>Project Library</h1>
@@ -112,20 +14,28 @@
     </div>
 
     <dialog class="dialog-form">
-      <form class="form-field" method="dialog">
+      <form class="form-field">
         <p>
           <label for="title">title</label>
-          <input type="text" id="title">
+          <input type="text" id="title" required>
         </p>
 
         <p>
           <label for="author">author</label>
-          <input type="author" id="author">
+          <input type="author" id="author" minlength="3" required>
         </p>
 
         <p>
           <label for="year">year</label>
-          <input type="number" id="year">
+          <input type="number" id="year" required>
+        </p>
+        <p>
+          <label for="pages">Pages</label>
+          <input type="number" id="pages" required>
+        </p>
+        <p>
+          <label for="current-page">Current Page</label>
+          <input type="number" id="current-page" required>
         </p>
         <p>
           <label for="submit">Submit</label>
@@ -137,162 +47,6 @@
     <button class="add-book-button">Add book</button>
 
 
-    <script>
-
-      // getting acces to elements
-      const book = document.querySelector('.book');
-      const addBook = document.querySelector('.add-book-button');
-
-      
-      // ----------------
-      const myLibrary = [
-        {
-          title: 'The Improv Handbook: The Ultimate Guide to Improvising in Comedy, Theatre, and Beyond',
-          year: '2008',
-          author: 'Tom Salinsky, Deborah Frances-White'
-        },
-        {
-          title: 'The Upright Citizen Brigade Comedy Improvisation Manual',
-          year: '2024',
-          author: 'Matt Besser, Ian Robert, Matt Walsh'
-        },
-      ];
-    
-      // Loop Through Mylibrary
-      function item1(item, index, array) {
-        // book.replaceChild(book.childNodes);
-        let title = item.title;
-        let year = item.year;
-        let author = item.author;
-
-        // create list for the books
-        const bookListDetail = document.createElement('div');
-        bookListDetail.classList.add('book-list-detail');
-        bookListDetail.id = `${index}`;
-        bookListDetail.innerHTML = `
-                        <ul>
-                          <li>
-                            <span>title:</span>
-                            <span>${title}</span>
-                          </li>
-                          <li>
-                            <span>author:</span>
-                            <span>${author}</span>
-                          </li>
-                          <li>
-                            <span>year:</span>
-                            <span>${year}</span>
-                          </li>
-                        </ul>
-                      `;
-
-        // button for delete the book from the list
-        const bookButtonContainer = document.createElement('div');
-        bookButtonContainer.classList.add('book-button-container');
-        bookListDetail.appendChild(bookButtonContainer);
-
-        const bookButton = document.createElement('button');
-        bookButton.classList.add('delete-book-item');
-        bookButton.id = `num${index}`;
-        bookButton.innerText = 'del';
-
-        const bookButton2 = document.createElement('button');
-        bookButton2.classList.add('read-book-item');
-        bookButton2.innerText = 'mark as read';
-
-        book.appendChild(bookListDetail);
-        bookButtonContainer.appendChild(bookButton);
-        bookButtonContainer.appendChild(bookButton2);
-
-        // myLibrary.forEach(item1);
-      }
-      myLibrary.forEach(item1);
-      
-      // Add book
-      addBook.addEventListener('click', () => {
-        const dialogForm = document.querySelector('.dialog-form');
-        dialogForm.showModal(); 
-      });
-      
-      // submit buttom acces
-      const submit = document.querySelector('#submit');
-      const dialogForm = document.querySelector('.dialog-form');
-      
-      // clicked submit
-      submit.addEventListener('click', (event) => {
-
-        // getting access to input
-        const titleForm = document.querySelector('#title');
-        const authorForm = document.querySelector('#author');
-        const yearForm = document.querySelector('#year');
-
-        // input value to object
-        let newBook = {
-          title: `${titleForm.value}`,
-          author: `${authorForm.value}`,
-          year: `${yearForm.value}`,
-        }
-        
-        // Updating the myLibrary
-        myLibrary.push(newBook);
-        console.log(newBook);
-
-        // acces bookListDetail in submit then remove them
-        const bookListDetail = document.querySelectorAll('.book-list-detail');
-        bookListDetail.forEach(item => item.remove());
-        
-        myLibrary.forEach(item1);
-        console.log(myLibrary);
-        
-        
-        // delete and mark as read or not.
-        deleteBook();
-        markAsReadButton();
-
-        // Reset form field
-        const formField = document.querySelector('.form-field');
-        formField.reset();
-        
-        event.preventDefault();
-        dialogForm.close();
-      });
-
-      // delete book button eventListener
-      function deleteBook() {
-        const deleteBookButton = document.querySelectorAll('.delete-book-item');
-        deleteBookButton.forEach((item, index, array) => {
-          item.addEventListener('click', (e) => {
-
-            // delete book item chosen after clicking button 'del'.
-            e.target.parentNode.parentNode.remove();
-            myLibrary.splice(e.target.parentNode.parentNode.id, 1);
-            // myLibrary.forEach(item1);
-            console.log(myLibrary)
-          });
-        });
-      }
-      deleteBook();
-
-      // mark as read button and its event
-      function markAsReadButton() {
-        const unRead = document.querySelectorAll('.read-book-item');
-        // dataseet for unread
-        unRead.forEach((item, index, array) => {
-          item.dataset.unRead = 've-read';
-        });
-
-        unRead.forEach((item, index, array) => {
-          item.addEventListener('click', (e) => {
-            if (!(e.target.innerText === 've-read')) {
-              e.target.innerText = e.target.dataset.unRead;
-            } else {
-              e.target.innerText = 'mark as read';
-            }
-          });
-        });
-      }
-      markAsReadButton();
-
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
