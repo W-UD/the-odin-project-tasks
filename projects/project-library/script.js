@@ -59,28 +59,36 @@ function item1(item, index, array) {
                   </ul>
                 `;
 
-  // button for delete the book from the list
+  // Book button container
   const bookButtonContainer = document.createElement('div');
   bookButtonContainer.classList.add('book-button-container');
   bookListDetail.appendChild(bookButtonContainer);
 
+  //  delete button
   const bookButton = document.createElement('button');
   bookButton.classList.add('delete-book-item');
   bookButton.id = `num${index}`;
   bookButton.innerHTML= `<img
                     src="icon/delete_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg"
                     alt="delete btn image"
-        />`;
+  />`;
 
+  // Button for marking the book that heve been read
   const bookButton2 = document.createElement('button');
   bookButton2.classList.add('read-book-item');
   bookButton2.innerText = 'mark as read';
+  // edit button
+  const bookButton3 = document.createElement('button');
+  bookButton3.classList.add('edit-book-item');
+  bookButton3.innerText = 'edit';
 
+
+  // appending bookButton
   book.appendChild(bookListDetail);
   bookButtonContainer.appendChild(bookButton);
   bookButtonContainer.appendChild(bookButton2);
+  bookButtonContainer.appendChild(bookButton3);
 
-  // myLibrary.forEach(item1);
 }
 myLibrary.forEach(item1);
 
@@ -109,7 +117,7 @@ submit.addEventListener('click', (event) => {
     alert('please enter the required input');
     return;
   }
-
+  
 
   // input value to object
   let newBook = {
@@ -121,8 +129,17 @@ submit.addEventListener('click', (event) => {
   }
   
   // Updating the myLibrary
-  myLibrary.push(newBook);
-  console.log(newBook);
+  if (typeof editMyLibrary === 'number') {
+    console.log('oke google');
+    myLibrary[editMyLibrary] = newBook;
+    
+    console.log(myLibrary);
+    editMyLibrary = 'off';
+  } else {
+    myLibrary.push(newBook);
+    console.log(newBook);
+  }
+
 
   // acces bookListDetail in submit then remove them
   const bookListDetail = document.querySelectorAll('.book-list-detail');
@@ -135,6 +152,7 @@ submit.addEventListener('click', (event) => {
   // delete and mark as read or not.
   deleteBook();
   markAsReadButton();
+  editBookButton();
 
   // Reset form field
   const formField = document.querySelector('.form-field');
@@ -180,3 +198,32 @@ function markAsReadButton() {
 }
 markAsReadButton();
 // dialog form validation onggoing working on
+
+
+// Edit book button EventListener
+let editMyLibrary = 'off';
+function editBookButton() {
+  const editButton = document.querySelectorAll('.edit-book-item');
+  editButton.forEach((item, index, array) => {
+    item.addEventListener('click', () => {
+      const bookItem = myLibrary[index];
+      console.log(myLibrary[index]);
+  
+      let title = document.querySelector('#title');
+      let author = document.querySelector('#author');
+      let year = document.querySelector('#year');
+      let pages = document.querySelector('#pages');
+      let currentPage = document.querySelector('#current-page');
+  
+      title.value = `${bookItem.title}`;
+      author.value = `${bookItem.author}`;
+      year.value = `${bookItem.year}`;
+      pages.value = `${bookItem.pages}`;
+      currentPage.value = `${bookItem['current page']}`;
+      
+      editMyLibrary = index;
+      dialogForm.showModal();
+    });
+  });
+}
+editBookButton();
