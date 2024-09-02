@@ -1,0 +1,202 @@
+
+body {
+  background-color: rgb(206, 200, 228);
+}
+
+h1 {
+  font-size: 23px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 19px;
+  font-style: italic;
+}
+
+.game-board {
+  padding: 30px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+
+  border-radius: 10px;
+  gap: 30px;
+}
+
+.square {
+  text-align: center;
+}
+
+.square-button {
+  background-color:rgb(206, 200, 228);
+  border: 3.5px solid rgb(87, 71, 150);
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  
+  display: block;
+  font-size: 60px;
+  font-style: italic;
+  color: #d40404ea;
+
+  transform: scale(1);
+  transition: 0.15s;
+  
+}
+
+.square-button:hover, #start-button:hover {
+  border: 10px solid rgba(97, 64, 246, 0.753);
+  background-color:rgba(221, 218, 236, 0.535);
+  transform: scale(1.1);
+
+}
+
+.square-button::after {
+  content: attr(data-hover);
+  color: #d32d2d67;
+  font-size: 0;
+
+  transition: 0.15s;
+}
+
+.square-button:hover::after {
+  content: attr(data-hover);
+  font-size: inherit;
+}
+
+#player-board-container {
+  border: 2px solid #d21616d5;
+  border-radius: 10px;
+  box-shadow: 3px 3px 1.5px rgb(115, 105, 153);
+
+  padding: 10px;
+  margin-top: 20px;
+
+  font-weight: bold;
+  font-size: 19px;
+  color: #d40404ea;
+  
+  display: none;
+  gap: 20px;
+}
+
+.player-board {
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+  align-items: normal;
+  gap: 10PX;
+}
+
+.player-score, #notification-player-shuffle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: rgb(87, 71, 150);
+}
+
+.player-score {
+  border-bottom: 2px solid #5c0808b7;
+}
+
+#notification-player-shuffle {
+  flex-grow: 2;
+}
+
+#player1-score, #player2-score {
+  text-align: center;
+  font-size: 28px;
+
+  flex-grow: 2;
+  width: 80%;
+}
+
+#start-button {
+
+  border: 3px solid rgb(87, 71, 150);
+  border-radius: 10px;
+  width: 50%;
+  margin: 20px auto;
+  height: 5ch;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: #d21616d5;
+  background-color: inherit;
+  
+  /* this hover effect is put on the '.square-button:hover bar' */
+  transition: 0.15s;
+  transform: scale(1);
+
+  display: block;
+}
+
+/* DIALOG AND FORM */
+#dialog[open] {
+  width: 100vw;
+  height: 100vh;
+  background-color: inherit;
+
+  display: flex;
+}
+
+form {
+  /* border: 1px solid #000; */
+  border-radius: 10px;
+  padding: 50px;
+  margin: auto;
+  width: 60%;
+
+  background-color: #c01c1cf3;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-items: center;
+  gap: 20px;
+}
+
+form div {
+  border: 2px solid rgba(158, 133, 248, 0.697);
+  border-radius: 10px;
+  padding: 20px;
+
+  display: grid;
+  justify-items: normal;
+  gap: 5px;
+}
+
+form input, form #submit-player {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color:  rgba(227, 221, 247, 0.764);
+  color: rgba(84, 0, 0, 0.335);
+  
+  font-weight: bold;
+  letter-spacing: 1ch;
+  font-size: 2ch;
+
+  transition: .1s;
+}
+
+form label {
+  color: rgb(218, 221, 236);
+  font-size: 2.5ch;
+}
+
+form input:hover, form #submit-player:hover {
+  transform:  scale(1.1);
+  border: 4px solid #000;
+}
+
+#submit-player {
+  color: rgba(84, 0, 0, 0.909);
+}
