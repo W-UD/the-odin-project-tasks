@@ -91,7 +91,7 @@ h3 {
   align-items: normal;
   gap: 10PX;
 
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
 }
 
 .player-score, #notification-player-shuffle {
