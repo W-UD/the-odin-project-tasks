@@ -152,11 +152,17 @@ const HTMLHandler = (() => {
 
   }; 
 
+  // Coloring The Winning Square
+  colorWinningSquare = (condition) => {
+    const winCondittonFulfilled = condition;
+    const squaresButtons = document.querySelectorAll('.square-button');
+    winCondittonFulfilled.forEach((index) => {
+      squaresButtons[index].classList.toggle('is-win');
+    });
+  };
 
-  // -----------------------------------------------
-  
 
-  return {resetBoardHtml, clickSquare, handleClickSquare, everySquaresMarked, setButtonOfSquareDataSet};
+  return {resetBoardHtml, clickSquare, handleClickSquare, everySquaresMarked, setButtonOfSquareDataSet, colorWinningSquare};
 
 })()
 HTMLHandler.clickSquare();
@@ -208,7 +214,9 @@ const inGame = (function() {
   
           document.getElementById('player2-score').textContent = player2_score;
         }
-        
+
+        colorWinningSquare(condition);
+
       }
       
     });

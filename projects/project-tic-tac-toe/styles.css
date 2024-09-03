@@ -69,6 +69,19 @@ h3 {
   font-size: inherit;
 }
 
+.is-win {
+  /* text-shadow: 2px 2px 5px blue; */
+  animation: winner .3s ease-in 1 forwards;
+}
+
+@keyframes winner {
+  0% { background-color: inherit; }
+  100% { 
+    background-color: rgba(255, 255, 0, 0.605); 
+    border: 10px solid rgba(97, 64, 246, 0.753);
+  }
+}
+
 #player-board-container {
   border: 2px solid #d21616d5;
   border-radius: 10px;
