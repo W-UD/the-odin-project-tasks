@@ -24,10 +24,21 @@ const gameBoard = (function() {
 
   // console.log(getBoardValue())
   const startGame = () => {
+    const dialog = document.getElementById('winning-notification');
+    
     currentPlayer = 'o';
     HTMLHandler.resetBoardHtml(currentPlayer);
     HTMLHandler.clickSquare();
+
+    dialog.close();
   };
+
+  const newGame = (player1_score, player2_score) => {
+    startGame();
+    const playerBoard = playerData.resetPlayerScore();
+    player1_score.textContent = playerBoard.player1_score;
+    player2_score.textContent = playerBoard.player2_score;
+  }
 
   const getCurrentPlayer = () => currentPlayer;
 
@@ -36,13 +47,14 @@ const gameBoard = (function() {
     return currentPlayer === 'x' ? (currentPlayer = 'o') : (currentPlayer = 'x');
   };
   
-  return {getBoardValue, startGame, playerTurn, getWinningCondition, getCurrentPlayer}
+  return {getBoardValue, startGame, playerTurn, getWinningCondition, getCurrentPlayer, newGame}
 })();
 
 const HTMLHandler = (() => {
   // Get Element Acces
   const squares = document.querySelectorAll('.square');
-  const startButton = document.querySelector('#start-button');
+  const playNextRound = document.querySelector('#start-button');
+  const newGameButton = document.getElementById('new-game');
 
   // Set data to squares
   const setSquareDataSet =  () => {
@@ -61,8 +73,17 @@ const HTMLHandler = (() => {
   } 
 
   
-  // Click startButton
-  startButton.addEventListener('click', gameBoard.startGame);
+  // Click playNextRound
+  playNextRound.addEventListener('click', gameBoard.startGame);
+
+  const clickNewGame = () => {
+    const player1_score = document.getElementById('player1-score');
+    const player2_score = document.getElementById('player2-score');
+
+    newGameButton.addEventListener('click', () => {
+      gameBoard.newGame(player1_score, player2_score);
+    });
+  }
   
   // Reset Board
   const resetBoardHtml = (currentPlayer) => {
@@ -93,11 +114,11 @@ const HTMLHandler = (() => {
   const handleClickSquare = (e) => {
     // get currentPlayer from gameBoard
     let currentPlayer = gameBoard.getCurrentPlayer();
+    let playerNames = playerData.getPlayers_name();
+
     // get #player-turn
     const playerTurnNotification = document.getElementById('player-turn');
-
     let win = inGame.isWin(playerTurnNotification);
-    
     
     // target parent node
     const target = e.target.parentNode;
@@ -111,7 +132,7 @@ const HTMLHandler = (() => {
 
       target.dataset.id = 'x';
       if (!win) {
-        playerTurnNotification.textContent = 'player1 turn';
+        playerTurnNotification.textContent = `${playerNames.player1_name} turn`;
       }
       target.removeEventListener('click', handleClickSquare);
       
@@ -120,7 +141,7 @@ const HTMLHandler = (() => {
       target.dataset.id = 'o';
 
       if (!win) {
-        playerTurnNotification.textContent = 'player2 turn';
+        playerTurnNotification.textContent = `${playerNames.player2_name} turn`;
       }
       
       target.removeEventListener('click', handleClickSquare);
@@ -161,18 +182,32 @@ const HTMLHandler = (() => {
     });
   };
 
+  const showWinningNotification = (playerTurnNotification) => {
+    const dialog =  document.querySelector('#winning-notification');
+    const winningnotification =  document.querySelector('#winning-notification > div');
+    const closeButton = document.getElementById('close-winning-notification-dialog');
 
-  return {resetBoardHtml, clickSquare, handleClickSquare, everySquaresMarked, setButtonOfSquareDataSet, colorWinningSquare};
+    winningnotification.textContent = `${playerTurnNotification.textContent}`
+
+    closeButton.addEventListener('click', () => dialog.close());
+    
+    dialog.showModal();
+  }
+
+  return {resetBoardHtml, clickSquare, handleClickSquare, everySquaresMarked, setButtonOfSquareDataSet, colorWinningSquare, showWinningNotification, clickNewGame};
 
 })()
 HTMLHandler.clickSquare();
 HTMLHandler.resetBoardHtml('o');
+HTMLHandler.clickNewGame();
 
 // INGAME PART
 const inGame = (function() {
-
+  
   // Winning
   const isWin = (playerTurnNotification) => {
+    const playerNames = playerData.getPlayers_name();
+
     const squares = document.querySelectorAll('.square');
     let checkWin = false;
     let whoWin;
@@ -199,15 +234,17 @@ const inGame = (function() {
         // Change Score for the winner
         whoWin = currentPlayer;
         if (whoWin === 'o') {
-          playerTurnNotification.textContent = `player1 won`;
-
+          playerTurnNotification.textContent = `${playerNames.player1_name} won`;
+          HTMLHandler.showWinningNotification(playerTurnNotification);
+          
           playerData.addPlayer1_Score();
           const player1_score = playerData.getPlayer1_Score();
           
           document.getElementById('player1-score').textContent = player1_score;
           
         } else if (whoWin === 'x') {
-          playerTurnNotification.textContent = `player2 won`;
+          playerTurnNotification.textContent = `${playerNames.player2_name} won`;
+          HTMLHandler.showWinningNotification(playerTurnNotification);
           
           playerData.addPlayer2_Score();
           const player2_score = playerData.getPlayer2_Score();
@@ -246,6 +283,8 @@ const inGame = (function() {
 const playerData = (() => {
   let player1_score = 0;
   let player2_score = 0;
+  let player1_name;
+  let player2_name;
 
 
   const dialog = document.querySelector('#dialog');
@@ -261,13 +300,14 @@ const playerData = (() => {
     // show the playerBoard notificatiion
     document.getElementById('player-board-container').style.display = 'flex';
 
-    // First Player Turn Notification. '>' means a child from the element.
-    document.querySelector('#player-turn').textContent = 'Player 1 Turn';
+    // First Player Turn Notification.
+    const initializeTurnNotification = document.querySelector('#player-turn');
 
     const player1 = document.querySelector('#player1').value;
     const player2 = document.querySelector('#player2').value;
     
     const playerBoard = getPlayerInput(player1, player2);
+    initializeTurnNotification.textContent = `${player1} turn`;
     editPlayerbboard(playerBoard);
   });
 
@@ -280,8 +320,15 @@ const playerData = (() => {
     player2_Board.textContent = `${playerBoard.player2}: (X)`;
   };
 
-  const getPlayerInput = (player1, player2) => ({player1, player2});
-  
+  const getPlayerInput = (player1, player2) => {
+    player1_name = player1;
+    player2_name = player2;
+
+    return {player1, player2}
+  };
+
+  const getPlayers_name = () => ({player1_name, player2_name});
+
   // Add Player Score
   const addPlayer1_Score = () => player1_score++;
   const addPlayer2_Score = () => player2_score++;
@@ -290,8 +337,16 @@ const playerData = (() => {
   const getPlayer1_Score = () => player1_score;
   const getPlayer2_Score = () => player2_score;
 
+  // Reset Player Score
+  const resetPlayerScore = () => {
+    player1_score = 0;
+    player2_score = 0;
 
-  return {getPlayerInput, editPlayerbboard, addPlayer1_Score, addPlayer2_Score, getPlayer1_Score, getPlayer2_Score};
+    return {player1_score, player2_score}
+  }
+
+
+  return {getPlayerInput, editPlayerbboard, addPlayer1_Score, addPlayer2_Score, getPlayer1_Score, getPlayer2_Score, getPlayers_name, resetPlayerScore};
   
 })();
 
