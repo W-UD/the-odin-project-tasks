@@ -186,7 +186,8 @@ const HTMLHandler = (() => {
     });
   };
 
-  const showWinningNotification = (playerTurnNotification) => {
+  // Winning and draw notification
+  const showWinningDrawNotification = (playerTurnNotification) => {
     const dialog =  document.querySelector('#winning-notification');
     const winningnotification =  document.querySelector('#winning-notification > div');
     const closeButton = document.getElementById('close-winning-notification-dialog');
@@ -198,7 +199,7 @@ const HTMLHandler = (() => {
     dialog.showModal();
   }
 
-  return {resetBoardHtml, clickSquare, handleClickSquare, everySquaresMarked, setButtonOfSquareDataSet, colorWinningSquare, showWinningNotification, clickNewGame};
+  return {resetBoardHtml, clickSquare, handleClickSquare, everySquaresMarked, setButtonOfSquareDataSet, colorWinningSquare, showWinningDrawNotification, clickNewGame};
 
 })()
 HTMLHandler.clickSquare();
@@ -239,7 +240,7 @@ const inGame = (function() {
         whoWin = currentPlayer;
         if (whoWin === 'o') {
           playerTurnNotification.textContent = `${playerNames.player1_name} won`;
-          HTMLHandler.showWinningNotification(playerTurnNotification);
+          HTMLHandler.showWinningDrawNotification(playerTurnNotification);
           
           playerData.addPlayer1_Score();
           const player1_score = playerData.getPlayer1_Score();
@@ -248,7 +249,7 @@ const inGame = (function() {
           
         } else if (whoWin === 'x') {
           playerTurnNotification.textContent = `${playerNames.player2_name} won`;
-          HTMLHandler.showWinningNotification(playerTurnNotification);
+          HTMLHandler.showWinningDrawNotification(playerTurnNotification);
           
           playerData.addPlayer2_Score();
           const player2_score = playerData.getPlayer2_Score();
@@ -273,6 +274,9 @@ const inGame = (function() {
       console.log(playerTurnNotification);
       console.log('draw');
       playerTurnNotification.textContent = 'the game is Draw!';
+
+      
+      HTMLHandler.showWinningDrawNotification(playerTurnNotification);
     }
     return true;
   }
