@@ -25,15 +25,19 @@ const gameBoard = (function() {
   // console.log(getBoardValue())
   const startGame = () => {
     const dialog = document.getElementById('winning-notification');
+    const playerTurnNotification = document.getElementById('player-turn');
     
     currentPlayer = 'o';
     HTMLHandler.resetBoardHtml(currentPlayer);
     HTMLHandler.clickSquare();
 
+    playerTurnNotification.textContent = `${playerData.getPlayers_name().player1_name} turn`;
+
     dialog.close();
   };
 
   const newGame = (player1_score, player2_score) => {
+    getForm ();
     startGame();
     const playerBoard = playerData.resetPlayerScore();
     player1_score.textContent = playerBoard.player1_score;
@@ -53,7 +57,7 @@ const gameBoard = (function() {
 const HTMLHandler = (() => {
   // Get Element Acces
   const squares = document.querySelectorAll('.square');
-  const playNextRound = document.querySelector('#start-button');
+  const playNextRound = document.querySelector('#next-round');
   const newGameButton = document.getElementById('new-game');
 
   // Set data to squares
@@ -350,4 +354,9 @@ const playerData = (() => {
   
 })();
 
+const getForm = () => {
+  const dialog = document.getElementById('dialog');
+  const form = document.getElementById('form-field');
 
+  dialog.showModal();
+}
