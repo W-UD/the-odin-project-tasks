@@ -4,22 +4,46 @@ const addBook = document.querySelector('.add-book-button');
 
 
 // ----------------
-const myLibrary = [
-  {
-    title: 'The Improv Handbook: The Ultimate Guide to Improvising in Comedy, Theatre, and Beyond',
-    year: '2008',
-    author: 'Tom Salinsky, Deborah Frances-White',
-    pages: '425',
-    'current page': '100'
-  },
-  {
-    title: 'The Upright Citizen Brigade Comedy Improvisation Manual',
-    year: '2024',
-    author: 'Matt Besser, Ian Robert, Matt Walsh',
-    pages: '384',
-    'current page': '125'
-  },
-];
+const myLibrary = [];
+
+// Using Class to generate object.
+class LibraryGenerator {
+  constructor(title, year, author, pages, currentPage) {
+    this.title = title;
+    this.year = year;
+    this.author = author;
+
+    this.pages = pages;
+    this['current page'] = currentPage;
+  }
+}
+
+const myLibraryDefault1 = new LibraryGenerator(
+  'The Improv Handbook: The Ultimate Guide to Improvising in Comedy, Theatre, and Beyond',
+
+  2008,
+
+  'Tom Salinsky, Deborah Frances-White',
+
+  425,
+
+  100
+);
+
+
+const myLibraryDefault2 = new LibraryGenerator(
+  'The Upright Citizen Brigade Comedy Improvisation Manual',
+
+  2024,
+
+  'Matt Besser, Ian Robert, Matt Walsh',
+
+  384,
+
+  125
+);
+myLibrary.push(myLibraryDefault1);
+myLibrary.push(myLibraryDefault2);
 
 // Loop Through Mylibrary
 function item1(item, index, array) {
