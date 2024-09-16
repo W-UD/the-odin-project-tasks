@@ -144,13 +144,7 @@ submit.addEventListener('click', (event) => {
   
 
   // input value to object
-  let newBook = {
-    title: `${titleForm.value}`,
-    author: `${authorForm.value}`,
-    year: `${yearForm.value}`,
-    pages: `${pagesForm.value}`,
-    'current page': `${currentPage.value}`,
-  }
+  const newBook = new LibraryGenerator(titleForm.value, authorForm.value, yearForm.value, pagesForm.value, currentPage.value);
   
   // Updating the myLibrary
   if (typeof editMyLibrary === 'number') {
