@@ -1,0 +1,653 @@
+body {
+    background-color: white;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 70%;
+    margin: auto;
+    display: flex;
+    margin-top: 40px;
+    min-height: 80%;
+    border-radius: 20px;
+    border: 5px solid #40bcd8;
+}
+
+.left {
+    width: 25%;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 100px;
+    padding-left: 50px;
+    font-size: 22px;
+}
+
+ul {
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.projects {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.projects-sign {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 30px;
+}
+
+li {
+    margin: 5px 0;
+    transition: background-color 0.3s, color 0.3s;
+    height: 30px;
+}
+
+li:hover {
+    cursor: pointer;
+    font-size: 23px;
+}
+
+.projectHover {
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.top {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+}
+
+.bottom {
+    display: flex;
+    flex: 15;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.name-sign {
+    display: flex;
+    font-family: 'Quicksand', sans-serif;
+    margin-top: 10px;
+    width: 80%;
+    gap: 20px;
+    align-items: center;
+    font-size: 22px;
+    height: 30px;
+    justify-content: space-between;
+}
+
+.sign img {
+    height: 25px;
+    width: 25px;
+    padding-top: 5px;
+}
+
+.sign img:hover {
+    height: 28px;
+    width: 28px;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    display: none;
+    visibility: hidden;
+    -webkit-appearance: none;
+}
+
+.todoContainer {
+    background-color: white;
+    border-radius: 25px;
+    width: 80%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: space-between;
+}
+
+.leftSide {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.rightSide {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.openImg {
+    height: 18px;
+    width: 18px;
+    margin-right: 2px;
+    cursor: pointer;
+}
+
+.priorityTodo {
+    border-radius: 50px;
+    height: 12px;
+    width: 12px;
+    margin-bottom: 2px;
+}
+
+.containerCheck {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.containerCheck input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    border-radius: 30px;
+    background-color: white;
+    border: solid 2px darkgray;
+}
+
+.containerCheck:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+.containerCheck input:checked~.checkmark {
+    background-color: darkgray;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+.modal-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: solid 2px #40bcd8;
+    min-width: 45%;
+    min-height: 70%;
+    font-family: 'Quicksand', sans-serif;
+    box-shadow: 0 20px 30px rgb(0 0 0 / 0.25);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.project-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: solid 2px #40bcd8;
+    width: 40%;
+    min-height: 30%;
+    font-family: 'Quicksand', sans-serif;
+    box-shadow: 0 20px 30px rgb(0 0 0 / 0.25);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.showModal {
+    opacity: 1;
+    pointer-events: visible;
+}
+
+.right {
+    flex-grow: 1;
+    background-color: #40bcd8;
+    border-top-right-radius: 13px;
+    border-bottom-right-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.box {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.close {
+    display: block;
+    position: absolute;
+    width: 40px;
+    top: 0;
+    right: 0;
+    color: tomato;
+    font-size: 34px;
+    padding-left: 15px;
+}
+
+.close:hover {
+    background-color: red;
+    color: #fcfcfc;
+    cursor: pointer;
+}
+
+.modal-box {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 5%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+.modal-box input {
+    height: 30px;
+    width: 70%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #1a2e35;
+}
+
+.modal-box select {
+    height: 30px;
+    width: 50%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #1a2e35;
+    background-color: white;
+}
+
+.modal-box .todo-description {
+    height: 60px;
+}
+
+.priority-details .category label {
+    display: flex;
+    align-items: center;
+}
+
+.priority-details .category .dot {
+    height: 18px;
+    width: 18px;
+    background: lightgray;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#dot-3:checked~.category label .three {
+    border-color: lightgray;
+    background: red;
+}
+
+#dot-2:checked~.category label .two {
+    border-color: lightgray;
+    background: orange;
+}
+
+#dot-1:checked~.category label .one {
+    border-color: lightgray;
+    background: green;
+}
+
+.priority-details .category {
+    display: flex;
+    flex: 1;
+    margin: 14px 0;
+    gap: 5px;
+    color: black;
+}
+
+div span.priority {
+    font-size: 16px;
+}
+
+.modal-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+}
+
+.btnSubmit {
+    width: 25%;
+    height: 35px;
+    font-size: 18px;
+    background-color: #40bcd8;
+    border: 0px;
+}
+
+.btnSubmit:hover {
+    width: 26%;
+    height: 36px;
+    cursor: pointer;
+}
+
+.details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 17px;
+    color: black;
+}
+
+.error {
+    color: red;
+    font-size: 15px;
+}
+
+.closeProject {
+    display: block;
+    position: absolute;
+    width: 40px;
+    top: 0;
+    right: 0;
+    color: tomato;
+    font-size: 34px;
+    padding-left: 15px;
+}
+
+.closeProject:hover {
+    background-color: red;
+    color: #fcfcfc;
+    cursor: pointer;
+}
+
+.nav-icon {
+    height: 28px;
+    width: 28px;
+    display: none;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    border: solid 2px #40bcd8;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.slide {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 22px;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 34px;
+    margin-left: 50px;
+    cursor: pointer;
+    color: white;
+    background-color: red;
+    width: 40px;
+    display: block;
+    padding-left: 15px;
+}
+
+.projectCreate {
+    cursor: pointer;
+}
+
+.projectCreateNav {
+    cursor: pointer;
+}
+
+.unclickable {
+    pointer-events: none;
+}
+
+.submit-delete {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deleteButton {
+    height: 28px;
+    width: 28px;
+    padding-top: 2px;
+}
+
+.deleteButton:hover {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.deleteProject {
+    height: 28px;
+    width: 28px;
+    padding-bottom: 2px;
+    display: flex;
+}
+
+.sign-name-div {
+    min-width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.deleteProject:hover {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+}
+
+.hide {
+    display: none;
+}
+
+.iconName {
+    display: flex;
+    gap: 10px;
+}
+
+.iconImage {
+    height: 28px;
+    width: 28px;
+}
+
+.todoListImage {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.todoListImage img {
+    width: 60px;
+    height: 60px;
+    padding-bottom: 5px;
+}
+
+/* Tablet design */
+@media (max-width: 1280px) {
+    .container {
+        max-width: 100%;
+        display: flex;
+        min-height: 100%;
+        margin: 0px;
+        border-radius: 20px;
+        border: 5px solid #987eff;
+        border-radius: 0px;
+    }
+
+    .right {
+        border-top-right-radius: 0%;
+        border-bottom-right-radius: 0px;
+    }
+
+    nav {
+        padding-left: 30px;
+        padding-top: 120px;
+    }
+
+    .left {
+        width: 30%;
+    }
+
+    .modal-container {
+        min-width: 80%;
+    }
+
+    .btnSubmit {
+        width: 34%;
+    }
+
+    .btnSubmit:hover {
+        width: 36%;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    ul {
+        font-size: 18px;
+    }
+
+    .projects {
+        font-size: 18px;
+    }
+
+    .slide {
+        width: 350px;
+    }
+
+    li:hover {
+        font-size: 20px;
+    }
+
+    .left {
+        display: none;
+        opacity: 0;
+    }
+
+    .title {
+        display: none;
+    }
+
+    .todoContainer {
+        width: 95%;
+        font-size: 15px;
+    }
+
+    .name-sign {
+        font-size: 20px;
+        width: 95%;
+    }
+
+    .modal-container {
+        width: 60%;
+    }
+
+    .project-container {
+        width: 80%;
+    }
+
+    .nav-icon {
+        display: block;
+        cursor: pointer;
+    }
+
+    .top {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px;
+    }
+
+    .rightSide {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .btnSubmit {
+        width: 33%;
+    }
+
+    .btnSubmit:hover {
+        width: 34%;
+    }
+
+    .todoListImage {
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+html {
+    visibility: visible;
+    opacity: 1;
+}

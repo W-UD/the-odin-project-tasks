@@ -1,0 +1,742 @@
+@use 'sass:math';
+
+$primary-color: #246a7d;
+// $secondary-color: #9e78f2;
+$secondary-color: #e4d8fd;
+
+$third-color: #3189a0;
+$fourth-color: #779fa9;
+$fifth-color: #ffffffe6;
+$sixth-color: #0f6b83;
+
+$ap-button-color: #abad35;
+
+// Form color
+$green-text: rgb(3, 56, 3);
+
+// Flex
+%flex-column-display {
+  display: flex;
+  flex-direction: column;
+}
+
+%flex-row-center-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+%flex-align-g20 {
+  align-items: center;
+  gap: 20px;
+}
+
+// Animation
+@mixin animate-width200-hideShow($name, $rule) {
+    @if $rule == 'hide' {
+      animation: $name 1s forwards;
+      @keyframes #{$name} {
+        0% {
+          left: -400;
+        }
+        
+        100% {
+          left: 0;
+        }
+      }
+
+      @content;
+
+    } @else if $rule == 'show' {
+      animation: $name 1s forwards;
+      // animation: name duration timing-function delay iteration-count direction fill-mode;
+      @keyframes #{$name} {
+        0% {
+          left: 0;
+        }
+        
+        100% {
+          left: -400;
+        }
+      }
+
+      @content;
+    }
+}
+
+// Hover
+@mixin hoverEl($scale) {
+  &:hover {
+    background-color: rgb(248, 148, 77);
+    cursor: pointer;
+    transform: scale($scale);
+    @content;
+  }
+}
+
+
+// Media Queries
+$mq-small: 500px;
+
+%media-max-small-hidden {
+  @media (max-width: calc($mq-small + 400px)) {
+    // position: fixed;
+    left: -400px;
+    top: 50px;
+    // border: 1px solid #000;
+  }
+}
+
+@mixin media-max-high-appear($size) {
+  @media (min-width: calc($mq-small + $size)) {
+    margin-left: 207px;
+    @content;
+  }
+}
+
+%media-501up-none {
+  @media (min-width: calc($mq-small + 400px)) {
+    display: none;
+  }
+}
+
+
+// ---------------------------------------------------------------
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  /* border: 1px solid #000; */
+  background-color: $primary-color;
+  min-height: 100vh;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+header {
+  width: 200px;
+  min-height: inherit;
+  z-index: 100;
+  // border-radius: 10px;
+  background-color: $secondary-color;
+  padding: 20px;
+  
+  position: fixed;
+  
+  @extend %flex-column-display;
+  @extend %flex-align-g20;
+  @extend %media-max-small-hidden;
+}
+
+.show-menus {
+  top: 50px;
+  @include animate-width200-hideShow(animateShow, 'show');
+}
+
+.hide-menus {
+  top: 50px;
+  border-right: 2px solid $third-color;
+  @include animate-width200-hideShow(animateHide, 'hide');
+}
+
+#project-title {
+  background-color: $sixth-color;
+  
+  font-weight: 900;
+  font-size: larger;
+  text-align: center;
+  color: white;
+
+  @extend %flex-column-display;
+  justify-content: center;
+
+  border-radius: 16px;
+  width: 80%;
+  height: 40px;
+}
+
+#show-menu-button {
+  @media (min-width: 501px) {
+    display: none;
+  }
+}
+
+#menus-container {
+  // border: 1px solid #000;
+  width: inherit;
+  height: auto;
+  padding: 10px;
+
+  @extend %flex-column-display;
+  @extend %flex-align-g20;
+}
+
+
+.menu {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  // border: 1px solid #000;
+
+  position: relative;
+  
+  & img {
+    display: block;
+    justify-self: end;
+    background-color: $third-color;
+  
+    border: none;
+    border-radius: 5px;
+    margin: 3px;
+    padding: 5px;
+  
+    color: $fifth-color;
+    font-weight: 500;
+    transition: 0.35s linear;
+
+    @include hoverEl(1);
+  }
+
+  .mr-0 {
+    padding: inherit;
+    // border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    max-width: 100px;
+
+    color: $fifth-color;
+    font-weight: 700;
+    font-size: 1.05rem;
+    overflow-wrap: anywhere;
+    
+    background-color: $third-color;
+    transition: background-color 0.45s ease, transform 0.45s ease;
+
+    @extend %flex-column-display;
+    justify-content: center;
+
+    @include hoverEl(1.05);
+  }
+
+}
+
+
+.rename-form {
+  background-color:  $ap-button-color;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 10;
+  border: 2px solid #524c4c;
+  position: absolute;
+  left: 100px;
+  @extend %flex-column-display;
+  
+  & #change-project-name {
+    display: block;
+
+    color: white;
+    background-color: $third-color;
+
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    margin: 5px auto 0 auto;
+    @include hoverEl(1.03);
+  }
+  
+  & #del-rename-form {
+    @extend #change-project-name;
+    margin: 0 0 3px auto;
+  }
+}
+
+// ---------------------------------------------------------------
+
+// AP FORM
+%input-ap-display-width {
+  display: block;
+  width: 100%;
+}
+
+#ap-form {
+  /* border: 1px solid #a41b1b; */
+  width: 100%;
+
+  #input-ap {
+    border: 2px solid $sixth-color;
+    border-radius: 5px;
+    padding: 5px;
+
+    @extend %input-ap-display-width;
+  }
+
+  #button-iap {
+    margin: 5px auto;
+    width: fit-content;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+  
+    background-color: $ap-button-color;
+  
+    font-size: .85rem;
+    font-weight: 700;
+    color: rgb(233, 240, 207);
+    transition: 0.3s;
+
+    @extend %input-ap-display-width;
+    @include hoverEl(1.02);
+  }
+
+}
+
+
+/* ----------------------------------------------------------- */
+
+#nav-container {
+  border-bottom: 2px solid $third-color;
+  // border-radius: 10px;
+  background-color: $secondary-color;
+  width: 100%;
+  height: 50px;
+  // margin: 0 10px 0px 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  
+  #show-menu-div {
+    height: 40px;
+    border: 2px solid rgba(59, 12, 12, 0.678);
+    padding: 3px;
+    border-radius: 3px;
+
+    background-color: rgb(247, 226, 211);
+    
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    
+    @extend %media-501up-none;
+    
+    
+    #show-menu-img {
+      display: block;
+      // border: 3px solid #1f31a7;
+      height: 100%;
+      width: 100%;
+      transition: all 0.4s ease-out;
+
+      @include hoverEl(1.4);
+    }
+
+  }
+
+  .nav-logo-img {
+    // border: 2px solid #567f1d;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
+/* ----------------------------------------------------------- */
+
+#content {
+  border: 3px solid $secondary-color;
+  width: 100%;
+  @extend %flex-column-display;
+
+  #title-container {
+    padding-right: 10px;
+    // border: 3px solid #000;
+    background-color: $secondary-color;
+
+    z-index: 50;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    @extend %flex-row-center-display;
+
+    @media (min-width: 500px) {
+      justify-content: space-around;
+    }
+
+    @include media-max-high-appear(401px) {
+     border-left: 3px solid $third-color;
+    };
+  }
+
+  #projectTitle {
+    border-left: 5px solid $primary-color;
+    padding: 5px;
+    // border-bottom: 2px solid #ae0a0a;
+    width: fit-content;
+    margin-left: 10px;
+
+    overflow-wrap: anywhere;
+  }
+
+  #pl-button-con {
+    // border: 1px solid #000;
+    margin-left: 10px;
+    margin-top: 0;
+    
+    @extend %flex-row-center-display;
+    gap: 5px;
+    
+    & > div {
+      background-color: $third-color;
+      color: $fifth-color;
+      display: block;
+      
+      width: 50px;
+      height: 30px;
+      // border: 1px solid #000;
+      border-radius: 3px;
+      border: none;
+      padding: 3px;
+
+      transition: 0.45s;
+      @include hoverEl(1.1);
+
+      #addpl-svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  // --------------------------------------------------------------------
+
+  // Dialog
+  #mydialog {
+    padding: 0;
+    border: none;
+    border-radius: 15px;
+
+    
+    @media (max-width: 600px) {
+      width: 60%;
+    } 
+    
+    @media (min-width: 601px) {
+      width: 40%;
+    } 
+
+    @media (max-width: 400px) {
+      width: 80%;
+    } 
+    // Form Todo
+    #form-todo {
+      width: 100%;
+      // border: 2px solid #770d0d;
+      padding: 20px;
+      background-color: $ap-button-color;
+    
+      gap: 10px;
+      @extend %flex-column-display;
+
+      // Input Container
+      .input-container {
+        // border: 1px solid #000;
+        padding-bottom: 5px;
+        // border-bottom: 1px solid #000;
+        @extend %flex-column-display;
+
+        // label
+        label {
+          color: $green-text;
+          font-weight: 700;
+        }
+
+        // input-l
+        input {
+          padding: 0 10px;
+          border: none;
+          border-radius: 3px;
+        }
+        
+        textarea {
+          @extend input;
+          height: 50px;
+          border-bottom: 1px solid black;
+          // border-radius: 10px;
+        }
+
+        select {
+          @extend input;
+        }
+
+        .input-l:not([type='textarea']):not(label):not([type='checkbox']) {
+          height: 30px;
+        }
+
+        // Input Checkbox
+        input[type="checkbox"] {
+          border: 1px solid #7c1515;
+          accent-color: rgb(0, 255, 162);
+          align-self: self-start;
+        }
+
+        
+        
+      }
+
+      // Input Button
+      %form-button {
+        margin: 0 auto;
+        height: 35px;
+        border: none;
+        
+        color: rgb(232, 231, 231);
+        background-color: rgb(43, 43, 81);
+
+        &:hover {
+          background-color: green;
+        }
+
+        &:active {
+          transform: scale(1.1);
+        }
+      }
+
+      #close-form-btn {
+        width: 35px;
+        padding: 8px;
+        border-radius: 17px;
+        font-size: 1.5rem;
+
+        display: flex;
+        justify-content:  center;
+        align-items: center;
+
+        @extend %form-button;
+      }
+
+      #input-btn {
+        width: 100px;
+        
+        font-weight: 700;
+        letter-spacing: 0.12ch;
+
+        transition: transform 0.35s, background-color 0.35s;
+        @extend %form-button;
+       
+      }
+
+    }
+  }
+}
+
+// --------------------------------------------------
+
+/* CONTENT TODO */
+
+#todo-container {
+  $grid-size: math.div(100%-10%, 4);
+  $grid-size-900: math.div(100%-35%, 2);
+  $grid-size-650: math.div(100%-20%, 2);
+  $grid-size-360: 100% - 15%;
+  display: grid;
+  grid-template-columns: $grid-size $grid-size $grid-size $grid-size;
+  justify-content: center;
+  gap: 15px;
+
+  margin-top: 20px;
+  padding-top: 120px;
+  // border: 5px solid $ap-button-color;
+
+  
+  @include media-max-high-appear(401px);
+  
+  @media (max-width: 900px) {
+    & {
+      grid-template-columns: $grid-size-900 $grid-size-900;
+    }
+  }
+
+  @media (max-width: 650px) {
+    & {
+      grid-template-columns: $grid-size-650 $grid-size-650;
+    }
+  }
+
+  @media (max-width: 365px) {
+    & {
+      grid-template-columns: $grid-size-360;
+    }
+  }
+
+  .todo {
+    // border: 1px solid #000;
+    // width: 180px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: $third-color;
+    color: $fifth-color;
+    // color: $fifth-color;
+    position: relative;
+  
+    @extend %flex-column-display;
+    align-items: center;
+    gap: 15px;
+
+    $td-info-map: (
+      title: 'Title:',
+      description: 'Description:',
+      dueDate: 'Due Date:',
+      priority: 'Priority:',
+      notes: 'Notes:',
+      checklist: 'Checklist:',
+      project: 'Project:',
+    );
+
+    .td-info {
+      width: 100%;
+      // border: 1px solid #000;
+      // @extend %flex-row-center-display;
+      justify-content: space-around;
+      word-wrap: break-word;
+
+      img {
+        // border: 1px solid #000;
+        position: relative;
+        
+        &#icon-priority {
+          width: 16px;
+          height: 20px;
+          bottom: -3px;
+          opacity: 0.8;
+        }
+
+        &#icon-progress {
+          width: 30px;
+          height: 30px;
+          bottom: -8px;
+        }
+      }
+    }
+
+    // td-info mixin
+    @mixin td-info-mixin() {
+      &:before {
+        font-size: calc(0.76rem);
+        justify-self: flex-start;
+        margin-right: 10px;
+        color: rgba(214, 214, 47, 0.794);
+
+        // border: 1px solid #000;
+        @content;
+      }
+    }
+
+    @each $key, $val in $td-info-map {
+      .tdi-#{$key} {
+        max-width: 150px;
+        border-bottom: 1px solid rgb(87, 91, 116);
+        padding-bottom: 5px;
+        font-weight: bold;
+
+        @if $key == 'notes' {
+          // overflow: auto;
+          height: auto;
+          display: block;
+        }
+        
+        @if $key == 'description' {
+          // overflow: auto;
+          display: block;
+          height: auto;
+        }
+
+        @include td-info-mixin() {
+          content: $val;
+        }
+      }
+    }
+
+    #priority-high {
+      display: inline-block;
+      color: rgb(97, 19, 5);
+      font-weight: 900;
+      letter-spacing: .5ch;
+    }
+
+    .td-button-container {
+      // margin-top: 8px;
+      // border: 1px solid #000;
+      width: 50px;
+      height: 90px;
+      box-shadow: 5px 5px 5px 0.2px rgb(45, 45, 85);
+      border-radius: 6px;
+      padding: 3px;
+      background-color: #abad35;
+      opacity: 0;
+      transition: opacity .35s;
+
+      @extend %flex-column-display;
+
+      position: absolute;
+      top: 0;
+      right: -25px;
+      z-index: 20;
+
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      .td-button {
+        // border: 1px solid #000;
+        border-radius: 4px;
+        transition: 0.35s;
+        @include hoverEl(1.3) {
+          opacity: 1;
+          background-color: rgb(77, 77, 195);
+        };
+      }
+    }
+
+    &:hover .td-button-container {
+      opacity: 0.5;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+
+#footer {
+  // border: 1px solid #000;
+  padding: 5px;
+
+  color: $fifth-color;
+  font-size: 0.8em;
+  line-height: 1.5em; 
+  
+  @extend %flex-column-display;
+  align-items: center;
+  gap: 15px;
+
+  // & > div {
+  //   border: 1px solid #000;
+  // }
+
+  #study-review {
+    font-style: italic;
+  }
+}
