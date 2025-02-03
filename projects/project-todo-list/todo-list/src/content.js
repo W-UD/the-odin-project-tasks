@@ -3,6 +3,7 @@ import addSvg from './icon/add_create_new_plus_icon.svg';
 import { accesElement, createEl, createMulEl, addElement, addMulElement, addMulText, addElis, emptyEl } from "./dom";
 import { getTodayCD, getELCD, getOPLCD, menusData } from "./data";
 import { postToDo, sendDataToLocalStorage, selectOption, sendMulDataToLocalStorage } from "./todo-form";
+import { changeTodoConPad} from './layout';
 import { LS } from "./local-storage";
 
 // Today List h1
@@ -118,6 +119,7 @@ function InitialProjectContent() {
 // Switch Content
 function switchContent(elClicked) {
   console.log(LS.notNull('menus'));
+
   if (LS.notNull('menus') === false) {
     const titleH1 = accesElement('#projectTitle', 1);
     const todoContainer = accesElement('#todo-container', 1);
@@ -134,9 +136,11 @@ function switchContent(elClicked) {
       contentData.forEach((todo=> {
         postToDo(todo);
       }));
+      changeTodoConPad();
     }
     else {
       emptyEl(todoContainer);
+      changeTodoConPad();
     }
   }
 
@@ -169,9 +173,12 @@ function switchContent(elClicked) {
       contentData.forEach((todo=> {
         postToDo(todo);
       }));
+
+      changeTodoConPad();
     }
     else {
       emptyEl(todoContainer);
+      changeTodoConPad();
     }
   }
 

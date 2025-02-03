@@ -5,7 +5,7 @@ module.exports = {
   entry: {
     main: {
       import: './src/main.js',
-      dependOn: ['data', 'dom', 'content', 'todo-form', 'menu'],
+      dependOn: ['data', 'dom', 'content', 'todo-form', 'menu', 'layout'],
     },
 
     data: {
@@ -32,11 +32,15 @@ module.exports = {
 
     content: {
       import: './src/content.js',
-      dependOn: ['dom', 'data', 'todo-form'],
+      dependOn: ['dom', 'data', 'todo-form', 'layout'],
     },
 
     "local-storage": {
       import: './src/local-storage.js',
+    },
+
+    layout: {
+      import: './src/layout.js',
     },
     
   },

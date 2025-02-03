@@ -14,6 +14,8 @@ import { activateH1Content, activatePL_BtnCon, activatePlButton, InitialProjectC
 
 import { activateFooter } from './footer.js';
 
+import { changeTodoConPad } from './layout.js';
+
 // Body
 const body = document.querySelector('body');
 
@@ -88,6 +90,9 @@ activateTodoContainer();
 
 // Initial Project Content
 InitialProjectContent();
+
+// Change Todo Container Padding
+changeTodoConPad();
 
 // Activate Footer
 activateFooter();
