@@ -1,8 +1,6 @@
 import { addMulElement, createEl, addElement, accesElement, addElis, addClass, toggleClass, removeClass, containCls } from "./dom";
-import icon1 from './icon/menu.svg';
-import icon2 from './icon/xmark.svg';
-import icon3 from './icon/notes-multiple-svgrepo-com.svg';
-
+import iconMenu from './icon/menu.svg';
+import iconXmark from './icon/xmark.svg';
 
 function activateNav() {
     const content = accesElement('#content', 1);
@@ -17,7 +15,7 @@ function activateNav() {
 
     homeLogo.innerHTML = `<div id=home-logo-text>Todo List Project</div>`;
   
-    showMenusDiv.innerHTML = `<img src='${icon1}' id='show-menu-img' class='nav-logo-img'>`;
+    showMenusDiv.innerHTML = `<img src='${iconMenu}' id='show-menu-img' class='nav-logo-img'>`;
     
     addElis(showMenusDiv, () => {
       const header = accesElement('#header', 1);
@@ -26,17 +24,17 @@ function activateNav() {
 
       if (!checkClass_showMenus && !checkClass_hideMenus) {
         addClass(header, '.hide-menus');
-        showMenusDiv.innerHTML = `<img src='${icon2}' id='show-menu-img' class='nav-logo-img'>`;
+        showMenusDiv.innerHTML = `<img src='${iconXmark}' id='show-menu-img' class='nav-logo-img'>`;
       }
       else if (checkClass_showMenus) {
         removeClass(header, 'show-menus');
         addClass(header, '.hide-menus');
-        showMenusDiv.innerHTML = `<img src='${icon2}' id='show-menu-img' class='nav-logo-img'>`;
+        showMenusDiv.innerHTML = `<img src='${iconXmark}' id='show-menu-img' class='nav-logo-img'>`;
 
       } else if (checkClass_hideMenus) {
         removeClass(header, 'hide-menus');
         addClass(header, '.show-menus');
-        showMenusDiv.innerHTML = `<img src='${icon1}' id='show-menu-img' class='nav-logo-img'>`;
+        showMenusDiv.innerHTML = `<img src='${iconMenu}' id='show-menu-img' class='nav-logo-img'>`;
       }
   
     });
