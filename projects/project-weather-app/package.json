@@ -43,7 +43,8 @@
     "lodash": "^4.17.21"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknow",
-    "*.js": "eslint --cache --fix"
+    "**/*.js": "npm run eslint --",
+    "**/*.js": "npm run eslint-fix --",
+    "**/*": "prettier --write --ignore-unknown --"
   }
 }
