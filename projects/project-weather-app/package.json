@@ -11,9 +11,9 @@
     "eslint-fix": "eslint --config eslint.config.mjs . --fix",
     "eslint-with-format": "eslint --format json-with-metadata .",
     "eslint-prettier-check": "eslint-config-prettier .",
-    "prittify": "prettier .",
-    "prittify-check": "prettier . --check",
-    "prittify-write": "prettier . --write",
+    "prittify": "prettier . --config .prettierrc",
+    "prittify-check": "prettier . --config .prettierrc --check",
+    "prittify-write": "prettier . --config .prettierrc --write",
     "prepare": "husky"
   },
   "author": "wud",
@@ -24,7 +24,7 @@
     "@eslint/js": "^9.34.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.34.0",
-    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-eslint": "^13.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.4",
@@ -43,7 +43,6 @@
     "lodash": "^4.17.21"
   },
   "lint-staged": {
-    "**/*.js": "npm run eslint --",
     "**/*.js": "npm run eslint-fix --",
     "**/*": "prettier --write --ignore-unknown --"
   }

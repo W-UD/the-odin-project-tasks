@@ -1,13 +1,16 @@
 import js from "@eslint/js";
 import globals from "globals";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
+import eslintConfigESLintBase from "eslint-config-eslint/base";
+import eslintConfigESLintCJS from "eslint-config-eslint/cjs";
 import eslintConfigPrettier from "eslint-config-prettier";
 
 export default defineConfig([
+  globalIgnores(["dist/", ".*"]),
   {
-    files: ["**/*.{js,mjs,cjs}"],
+    files: ["**/*.{js}"],
     plugins: { js },
-    extends: ["js/recommended"],
+    extends: ["js/recommended", eslintConfigESLintBase],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -23,7 +26,11 @@ export default defineConfig([
       "symbol-description": 2, // require description to create symbol from constructor
       yoda: ["warn", "always", { exceptRange: true }],
     },
-    ignores: ["node_module/**", "dist/**"],
+  },
+  {
+    files: ["**/*.cjs", "**/*.mjs"],
+    extends: [eslintConfigESLintCJS],
+    ignores: ["eslint.config.mjs"],
   },
   eslintConfigPrettier,
 ]);
