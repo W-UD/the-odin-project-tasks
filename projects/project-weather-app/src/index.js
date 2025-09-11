@@ -6,58 +6,35 @@ async function getWeather(location) {
     const urlApi = new URL(urlString); // this is just to practice new URL constructor
     // 1. Await the fetch response
     const fetchWeatherData = await fetch(urlApi);
-    fetchWeatherData.json().then((weatherData) => {
-      // console.log(weatherData);
-      // console.log(weatherData.days[0]);
-      // console.log(weatherData.days[0].address);
-      // console.log(weatherData.days[0].conditions);
-      // console.log(weatherData.days[0].datetime);
-      // console.log(weatherData.days[0].humidity, "%");
-      // console.log(weatherData.days[0].cloudcover, "%");
-      // console.log(weatherData.days[0].dew);
-      // console.log(weatherData.days[0].precip);
-      // console.log(weatherData.days[0].preciptype);
-      // console.log(weatherData.days[0].windspeed);
-      // console.log(weatherData.days[0].severerisk);
-      // console.log(weatherData.days[0].pressure);
-      // console.log(weatherData.days[0].visibility);
-      // console.log(weatherData.days[0].source);
-      // console.log(weatherData.days[0].snow);
-      // console.log(weatherData.days[0].snowdepth);
-      // console.log(weatherData.days[0].sunrise);
-      // console.log(weatherData.days[0].sunset);
-      // console.log(weatherData.days[0].moonrise);
-      // console.log(weatherData.days[0].moonset);
-      // console.log(weatherData.days[0].temp);
-      // console.log(weatherData.days[0].tempmax);
-      // console.log(weatherData.days[0].tempmin);
-      // console.log(weatherData.days[0].uvindex);
-      const {
-        address,
-        conditions,
-        datetime,
-        humidity,
-        cloudcover,
-        dew,
-        precip,
-        preciptype,
-        windspeed,
-        severerisk,
-        pressure,
-        visibility,
-        source,
-        snow,
-        snowdept,
-        sunrise,
-        sunset,
-        moonrise,
-        moonset,
-        temp,
-        tempmax,
-        tempmin,
-      } = weatherData.days[0];
+    return fetchWeatherData.json().then((weatherData) => {
+      // const {
+      //   address,
+      //   conditions,
+      //   datetime,
+      //   humidity,
+      //   cloudcover,
+      //   dew,
+      //   precip,
+      //   preciptype,
+      //   windspeed,
+      //   severerisk,
+      //   pressure,
+      //   visibility,
+      //   source,
+      //   snow,
+      //   snowdept,
+      //   sunrise,
+      //   sunset,
+      //   moonrise,
+      //   moonset,
+      //   temp,
+      //   tempmax,
+      //   tempmin,
+      // } = weatherData.days[0];
 
-      console.log(datetime, humidity);
+      // console.log(datetime, humidity);
+
+      return weatherData.days[0];
     });
 
     // 2. Check if the response is OK (status code 200-299)
@@ -77,11 +54,38 @@ async function getWeather(location) {
     throw error;
   }
 }
-getWeather("makassar");
+putWeatherDataToDom("Makassar");
+
+function putWeatherDataToDom(infoLocation) {
+  const infoContainer = document.getElementById("info-container");
+  const location = document.getElementById("location");
+  const temp = document.getElementById("temp");
+  const conditions = document.getElementById("conditions");
+  if (infoLocation !== "") {
+    const dataPromises = getWeather(infoLocation);
+    dataPromises.then((data) => {
+      location.innerText = `${infoLocation}`;
+      temp.innerText = `${data.temp}`;
+      conditions.innerText = `${data.conditions}`;
+
+      const dataKeys = Object.keys(data);
+      console.log(dataKeys);
+      dataKeys.forEach((key, index, arr) => {
+        if (key !== "hours") {
+          const keyElement = document.createElement("div");
+          keyElement.id = data[key];
+          keyElement.innerText = `${key}: ${data[key]}`;
+          infoContainer.appendChild(keyElement);
+        }
+      });
+    });
+  }
+}
 
 const getWeatherButton = document.getElementById("get-weather-data");
 getWeatherButton.addEventListener("click", () => {
-  const location = document.getElementById("search-location");
-  if (location.value !== "") getWeather(location.value);
+  const locationInput = document.getElementById("search-location");
+  console.log(locationInput);
+  putWeatherDataToDom(locationInput.value);
   console.log("location empty");
 });
