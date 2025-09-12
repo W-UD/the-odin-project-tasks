@@ -59,21 +59,22 @@ putWeatherDataToDom("Makassar");
 function putWeatherDataToDom(infoLocation) {
   const infoContainer = document.getElementById("info-container");
   const location = document.getElementById("location");
-  const temp = document.getElementById("temp");
-  const conditions = document.getElementById("conditions");
+  //  const temp = document.getElementById("temp");
+  //  const conditions = document.getElementById("conditions");
+
   if (infoLocation !== "") {
     const dataPromises = getWeather(infoLocation);
     dataPromises.then((data) => {
       location.innerText = `${infoLocation}`;
-      temp.innerText = `${data.temp}`;
-      conditions.innerText = `${data.conditions}`;
+      // temp.innerText = `${data.temp}`;
+      // conditions.innerText = `${data.conditions}`;
 
       const dataKeys = Object.keys(data);
       console.log(dataKeys);
       dataKeys.forEach((key, index, arr) => {
         if (key !== "hours") {
           const keyElement = document.createElement("div");
-          keyElement.id = data[key];
+          keyElement.id = key;
           keyElement.innerText = `${key}: ${data[key]}`;
           infoContainer.appendChild(keyElement);
         }

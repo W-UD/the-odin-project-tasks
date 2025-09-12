@@ -1,19 +1,50 @@
 #weather-info-container {
   border: 1px solid blue;
-  padding: 2px;
+  padding: 20px;
 
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
   gap: 10px;
 }
 
 #location-container {
   border: 1px solid yellow;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
 }
 
 #info-container {
-  border: 1px solid green;
+  border: 9px solid green;
   flex: 1 1 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "main main main"
+    "main2 main2 main2"
+    "main3 main3 main3"
+}
+
+#info-container > div:not(#temp, #conditions, #datetime) {
+  border: 1px solid blue;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#temp, #conditions, #datetime {
+  text-align: center;
+  border: none;
+}
+
+#temp {
+  grid-area: main;
+}
+
+#conditions {
+  grid-area: main2;
+}
+
+#datetime {
+  grid-area: main3;
 }
