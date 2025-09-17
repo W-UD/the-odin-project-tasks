@@ -1,4 +1,5 @@
 import "./main.css";
+import { getWeatherIcon } from "./weather-icon.js";
 
 async function getWeather(location) {
   const apiKey = "RWUQEVDPA9SKXW3FWHR8CGQX6";
@@ -82,6 +83,17 @@ function putWeatherDataToDom(infoLocation) {
           infoContainer.appendChild(keyElement);
         }
       });
+      const tempElement = document.getElementById("temp");
+      const iconElement = document.createElement("img");
+
+      const iconPath = getWeatherIcon(data.icon).then((path) => {
+        console.log(path);
+        iconElement.id = `${data.icon}`;
+        iconElement.src = path;
+      });
+      console.log(iconElement);
+
+      tempElement.appendChild(iconElement);
     });
   }
 }
