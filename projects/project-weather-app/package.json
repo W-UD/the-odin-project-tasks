@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "dev": "webpack serve --open",
+    "start": "webpack serve --open",
     "watch": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint --config eslint.config.mjs .",

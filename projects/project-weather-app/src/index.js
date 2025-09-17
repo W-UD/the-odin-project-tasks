@@ -1,3 +1,5 @@
+import "./main.css";
+
 async function getWeather(location) {
   const apiKey = "RWUQEVDPA9SKXW3FWHR8CGQX6";
   const urlString = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${apiKey}&contentType=json`;
@@ -58,6 +60,7 @@ putWeatherDataToDom("Makassar");
 
 function putWeatherDataToDom(infoLocation) {
   const infoContainer = document.getElementById("info-container");
+  infoContainer.innerHTML = "";
   const location = document.getElementById("location");
   //  const temp = document.getElementById("temp");
   //  const conditions = document.getElementById("conditions");

@@ -13,20 +13,27 @@
 }
 
 #info-container {
-  border: 9px solid green;
+  border: 3px solid green;
+  padding: 4px;
   flex: 1 1 auto;
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
     "main main main"
     "main2 main2 main2"
-    "main3 main3 main3"
+    "main3 main3 main3";
+  /* column-gap: 0px; */
+  /* row-gap: 8px; */
+  gap: 8px 0px;
 }
 
 #info-container > div:not(#temp, #conditions, #datetime) {
-  border: 1px solid blue;
+  border: 1px dashed green;
   text-align: center;
+  padding: 4px;
+  background-color: pink;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +42,7 @@
 #temp, #conditions, #datetime {
   text-align: center;
   border: none;
+  color: green;
 }
 
 #temp {

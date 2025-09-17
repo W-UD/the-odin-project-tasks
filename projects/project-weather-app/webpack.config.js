@@ -1,6 +1,7 @@
 const path = require("node:path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { runtime } = require("webpack");
 // const ESLintPlugin = require("eslint-webpack-plugin");
 // const { ESLint } = require('eslint');
 
@@ -8,11 +9,14 @@ module.exports = {
   mode: "development",
   entry: "./src/index.js",
   output: {
-    filename: "main.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
   devtool: "inline-source-map",
+  devServer: {
+    static: "./dist",
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/main.html",
@@ -31,6 +35,13 @@ module.exports = {
         test: /\.html$/i,
         use: "html-loader",
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
     ],
+  },
+  optimization: {
+    runtimeChunk: "single",
   },
 };
