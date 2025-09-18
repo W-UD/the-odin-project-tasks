@@ -63,20 +63,35 @@ function putWeatherDataToDom(infoLocation) {
   const infoContainer = document.getElementById("info-container");
   infoContainer.innerHTML = "";
   const location = document.getElementById("location");
+  location.innerHTML = "";
   //  const temp = document.getElementById("temp");
   //  const conditions = document.getElementById("conditions");
 
   if (infoLocation !== "") {
     const dataPromises = getWeather(infoLocation);
+
+    const locationLetters = infoLocation.split("");
+    locationLetters.forEach((l) => {
+      const element = document.createElement("div");
+      element.innerText = l;
+      location.appendChild(element);
+    });
+
     dataPromises.then((data) => {
-      location.innerText = `${infoLocation}`;
+      // location.innerText = `${infoLocation}`;
       // temp.innerText = `${data.temp}`;
       // conditions.innerText = `${data.conditions}`;
 
       const dataKeys = Object.keys(data);
       console.log(dataKeys);
       dataKeys.forEach((key, index, arr) => {
-        if (key !== "hours") {
+        if (key === "temp" || key === "conditions" || key === "datetime") {
+          const keyElement = document.createElement("div");
+          keyElement.id = key;
+          keyElement.classList.add("top-table");
+          keyElement.innerText = `${key}: ${data[key]}`;
+          infoContainer.appendChild(keyElement);
+        } else if (key !== "hours") {
           const keyElement = document.createElement("div");
           keyElement.id = key;
           keyElement.innerText = `${key}: ${data[key]}`;
