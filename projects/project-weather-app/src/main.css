@@ -1,3 +1,10 @@
+.pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 #weather-info-container {
   border: 2px solid blue;
   padding: 20px;
@@ -50,9 +57,14 @@
 
 #temp, #conditions, #datetime {
   text-align: center;
+  font-family: "Pacifico";
   border: none;
-  background-color: blue;
-  color: white;
+  background-color: #3ed948;
+  color: #09112de5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #temp {
