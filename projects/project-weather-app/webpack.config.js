@@ -1,7 +1,5 @@
-const path = require("node:path");
-
+const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { runtime } = require("webpack");
 // const ESLintPlugin = require("eslint-webpack-plugin");
 // const { ESLint } = require('eslint');
 
@@ -16,6 +14,7 @@ module.exports = {
   devtool: "inline-source-map",
   devServer: {
     static: "./dist",
+    hot: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -37,6 +36,10 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2||eot|ttf|otf)$/i,
         type: "asset/resource",
       },
     ],

@@ -1,6 +1,10 @@
 #weather-info-container {
-  border: 1px solid blue;
+  border: 2px solid blue;
   padding: 20px;
+  padding-top: 50px;
+  padding-bottom: 10px;
+  background-color: #ac9d88;
+  height: min(100vh);
 
   display: flex;
   flex-direction: row;
@@ -47,8 +51,8 @@
 #temp, #conditions, #datetime {
   text-align: center;
   border: none;
+  background-color: blue;
   color: white;
-  background-color: green;
 }
 
 #temp {
