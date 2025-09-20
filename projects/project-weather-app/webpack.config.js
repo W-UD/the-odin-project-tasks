@@ -6,9 +6,16 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    index: "./src/index.js",
-    "public-api-register": "./src/data-api/public-api-register.json",
-    "weather-icon": "./src/data-api/weather-icon.js",
+    index: {
+      import: "./src/index.js",
+      dependOn: ["public-api-register", "weather-icon"],
+    },
+    "public-api-register": {
+      import: "./src/data-api/public-api-register.json",
+    },
+    "weather-icon": {
+      import: "./src/data-api/weather-icon.js",
+    },
   },
   output: {
     filename: "[name].js",
