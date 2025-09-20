@@ -1,9 +1,8 @@
 import "./main.css";
-import { getWeatherIcon } from "./weather-icon.js";
-
+import { getWeatherIcon } from "./data-api/weather-icon.js";
+import publicApiKey from "./data-api/public-api-register.json";
 async function getWeather(location) {
-  const apiKey = "RWUQEVDPA9SKXW3FWHR8CGQX6";
-  const urlString = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${apiKey}&contentType=json`;
+  const urlString = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${publicApiKey.key}&contentType=json`;
 
   try {
     const urlApi = new URL(urlString); // this is just to practice new URL constructor

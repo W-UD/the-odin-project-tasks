@@ -5,7 +5,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: {
+    index: "./src/index.js",
+    "public-api-register": "./src/data-api/public-api-register.json",
+    "weather-icon": "./src/data-api/weather-icon.js",
+  },
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
