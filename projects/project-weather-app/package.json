@@ -1,6 +1,7 @@
 {
   "name": "project-weather-app",
   "version": "1.0.0",
+  "sideEffects": ["**/*.css"],
   "private": true,
   "scripts": {
     "build": "webpack",

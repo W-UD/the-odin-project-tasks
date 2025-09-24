@@ -18,7 +18,7 @@ module.exports = {
     },
   },
   output: {
-    filename: "[name].js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -56,6 +56,25 @@ module.exports = {
     ],
   },
   optimization: {
+    usedExports: true,
+    moduleIds: "deterministic",
+    splitChunks: {
+      chunks: "all",
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+          enforce: true, // Force creation even if small
+        },
+        common: {
+          name: "common",
+          minChunks: 2, // Modules used in 2+ chunks
+          chunks: "all",
+          minSize: 0,
+        },
+      },
+    },
     runtimeChunk: "single",
   },
 };

@@ -1,1 +1,1 @@
-** Reading webpack documentation guides: Development. **
+** Reading webpack documentation guides: Production. ** 
