@@ -61,6 +61,9 @@ putWeatherDataToDom("Makassar");
 function putWeatherDataToDom(infoLocation) {
   const inputLocation = document.getElementById("search-location");
   inputLocation.placeholder = infoLocation;
+  // Reset input location value for placeholder
+  inputLocation.value = "";
+
   const infoContainer = document.getElementById("info-container");
   infoContainer.innerHTML = "";
   const location = document.getElementById("location");
@@ -68,15 +71,20 @@ function putWeatherDataToDom(infoLocation) {
   //  const temp = document.getElementById("temp");
   //  const conditions = document.getElementById("conditions");
 
-  if (infoLocation !== "") {
+  if (infoLocation !== "" && infoLocation !== null) {
     const dataPromises = getWeather(infoLocation);
-
+    console.log(dataPromises);
     const locationLetters = infoLocation.split("");
     locationLetters.forEach((l) => {
       const element = document.createElement("div");
       element.innerText = l;
       location.appendChild(element);
     });
+
+    // working on
+    if (dataPromises.state === "pending") {
+      infoContainer.innerHTML = "Loading the data..";
+    }
 
     dataPromises.then((data) => {
       // location.innerText = `${infoLocation}`;
@@ -118,6 +126,7 @@ const getWeatherButton = document.getElementById("get-weather-data");
 getWeatherButton.addEventListener("click", () => {
   const locationInput = document.getElementById("search-location");
   console.log(locationInput);
-  putWeatherDataToDom(locationInput.value);
-  console.log("location empty");
+  if (locationInput.value !== "") {
+    putWeatherDataToDom(locationInput.value);
+  }
 });
