@@ -1,12 +1,32 @@
+.search-container {
+ /*  border: 1px solid black; */
+  padding: 5px;
+  background-color: #3ed948;
+
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+#search-location {
+  background-color: pink;
+  border: 2px solid white;
+  padding: 5px;
+}
+
+#get-weather-data {
+  background-color: pink;
+  border: 2px solid white;
+  padding: 5px;
+}
+
 .pacifico-regular {
   font-family: "Pacifico", cursive;
   font-weight: 400;
   font-style: normal;
 }
 
-
 #weather-info-container {
-  border: 2px solid blue;
   padding: 20px;
   padding-top: 50px;
   padding-bottom: 10px;
@@ -19,13 +39,16 @@
 }
 
 #location-container {
-  border: 1px solid green;
+  border: 2px solid green;
   padding: 5px;
+  background-color: #3ed948;
+
   flex: 0 1 auto;
   align-self: center;
 
-  background-color: green;
-  color: white;
+  color: #532314;
+  font-weight: 900;
+  font-size: 18px;;
 }
 
 #info-container {
@@ -55,9 +78,12 @@
   justify-content: center;
 }
 
-#temp, #conditions, #datetime {
+#temp,
+#conditions,
+#datetime {
   text-align: center;
-  text-shadow: -1px -1px 0 #000,
+  text-shadow:
+    -1px -1px 0 #000,
     1px -1px 0 #000,
     -1px 1px 0 #000,
     1px 1px 0 #000;

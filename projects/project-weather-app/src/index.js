@@ -59,6 +59,8 @@ async function getWeather(location) {
 putWeatherDataToDom("Makassar");
 
 function putWeatherDataToDom(infoLocation) {
+  const inputLocation = document.getElementById("search-location");
+  inputLocation.placeholder = infoLocation;
   const infoContainer = document.getElementById("info-container");
   infoContainer.innerHTML = "";
   const location = document.getElementById("location");
