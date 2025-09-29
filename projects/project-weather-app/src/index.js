@@ -1,43 +1,76 @@
 import "./main.css";
 import { getWeatherIcon } from "./data-api/weather-icon.js";
 import publicApiKey from "./data-api/public-api-register.json";
+
+function hideLoading() {
+  const loading = document.getElementById("global-loading");
+  if (loading) loading.remove();
+}
+
+function showLoading() {
+  // ✅ Create loading without destroying existing content
+  const existingLoading = document.getElementById("global-loading");
+  if (existingLoading) return; // Don't duplicate
+
+  const loadingDiv = document.createElement("div");
+  loadingDiv.id = "global-loading";
+  loadingDiv.innerHTML =
+    '<div style="color: white; font-size: 20px;">Loading...</div>';
+  document.body.appendChild(loadingDiv);
+}
+
+function fetchError() {
+  const body = document.body;
+  const errorEl = document.createElement("div");
+  errorEl.id = "error-el";
+  errorEl.innerText = "No data availabe for your search..";
+
+  body.appendChild(errorEl);
+
+  // setTimeout(() => {
+  //   errorEl.remove();
+  // }, 3000);
+}
+
 async function getWeather(location) {
   const urlString = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${publicApiKey.key}&contentType=json`;
+  showLoading();
 
   try {
     const urlApi = new URL(urlString); // this is just to practice new URL constructor
     // 1. Await the fetch response
     const fetchWeatherData = await fetch(urlApi);
-    return fetchWeatherData.json().then((weatherData) => {
-      // const {
-      //   address,
-      //   conditions,
-      //   datetime,
-      //   humidity,
-      //   cloudcover,
-      //   dew,
-      //   precip,
-      //   preciptype,
-      //   windspeed,
-      //   severerisk,
-      //   pressure,
-      //   visibility,
-      //   source,
-      //   snow,
-      //   snowdept,
-      //   sunrise,
-      //   sunset,
-      //   moonrise,
-      //   moonset,
-      //   temp,
-      //   tempmax,
-      //   tempmin,
-      // } = weatherData.days[0];
+    const weatherData = await fetchWeatherData.json();
+    // return fetchWeatherData.json().then((weatherData) => {
+    // const {
+    //   address,
+    //   conditions,
+    //   datetime,
+    //   humidity,
+    //   cloudcover,
+    //   dew,
+    //   precip,
+    //   preciptype,
+    //   windspeed,
+    //   severerisk,
+    //   pressure,
+    //   visibility,
+    //   source,
+    //   snow,
+    //   snowdept,
+    //   sunrise,
+    //   sunset,
+    //   moonrise,
+    //   moonset,
+    //   temp,
+    //   tempmax,
+    //   tempmin,
+    // } = weatherData.days[0];
 
-      // console.log(datetime, humidity);
+    // console.log(datetime, humidity);
 
-      return weatherData.days[0];
-    });
+    // return weatherData.days[0];
+    // });
 
     // 2. Check if the response is OK (status code 200-299)
     // if (!response.ok) {
@@ -49,11 +82,14 @@ async function getWeather(location) {
 
     // 4. Return the data for use elsewhere in your app
     // return data;
+    return weatherData.days[0];
   } catch (error) {
     // 5. Handle any errors that occurred during the fetch or parsing
-    console.error("Fetch failed:", error);
     // You might want to re-throw the error or show a message to the user
-    throw error;
+
+    fetchError();
+  } finally {
+    hideLoading();
   }
 }
 putWeatherDataToDom("Makassar");
@@ -81,15 +117,14 @@ function putWeatherDataToDom(infoLocation) {
       location.appendChild(element);
     });
 
-    // working on
-    if (dataPromises.state === "pending") {
-      infoContainer.innerHTML = "Loading the data..";
-    }
-
     dataPromises.then((data) => {
-      // location.innerText = `${infoLocation}`;
-      // temp.innerText = `${data.temp}`;
-      // conditions.innerText = `${data.conditions}`;
+      const errorEl = document.getElementById("error-el");
+      if (errorEl) errorEl.remove();
+
+      if (typeof data !== "object") {
+        fetchError();
+        return;
+      }
 
       const dataKeys = Object.keys(data);
       console.log(dataKeys);
@@ -123,7 +158,8 @@ function putWeatherDataToDom(infoLocation) {
 }
 
 const getWeatherButton = document.getElementById("get-weather-data");
-getWeatherButton.addEventListener("click", () => {
+getWeatherButton.addEventListener("click", (event) => {
+  event.preventDefault();
   const locationInput = document.getElementById("search-location");
   console.log(locationInput);
   if (locationInput.value !== "") {
