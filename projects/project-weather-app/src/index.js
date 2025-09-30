@@ -20,6 +20,8 @@ function showLoading() {
 
 function fetchError() {
   const body = document.body;
+  const errorContainerCheck = document.getElementById("error-el-container");
+  if (errorContainerCheck) errorContainerCheck.remove();
 
   // Error Elements Container
   const errorElContainer = document.createElement("div");
@@ -43,17 +45,12 @@ function fetchError() {
   newSearchButton.id = "new-search-button";
   newSearchButton.innerText = "New Location";
   newSearchButton.addEventListener("click", (event) => {
-    
-  const newLocationInput = document.getElementById("new-search-location");
+    const newLocationInput = document.getElementById("new-search-location");
     getWeatherButtonHandler(newLocationInput, event);
   });
   newSearchContainer.appendChild(newSearchButton);
 
   body.appendChild(errorElContainer);
-
-  // setTimeout(() => {
-  //   errorEl.remove();
-  // }, 3000);
 }
 
 async function getWeather(location) {
@@ -62,55 +59,10 @@ async function getWeather(location) {
 
   try {
     const urlApi = new URL(urlString); // this is just to practice new URL constructor
-    // 1. Await the fetch response
     const fetchWeatherData = await fetch(urlApi);
     const weatherData = await fetchWeatherData.json();
-    // return fetchWeatherData.json().then((weatherData) => {
-    // const {
-    //   address,
-    //   conditions,
-    //   datetime,
-    //   humidity,
-    //   cloudcover,
-    //   dew,
-    //   precip,
-    //   preciptype,
-    //   windspeed,
-    //   severerisk,
-    //   pressure,
-    //   visibility,
-    //   source,
-    //   snow,
-    //   snowdept,
-    //   sunrise,
-    //   sunset,
-    //   moonrise,
-    //   moonset,
-    //   temp,
-    //   tempmax,
-    //   tempmin,
-    // } = weatherData.days[0];
-
-    // console.log(datetime, humidity);
-
-    // return weatherData.days[0];
-    // });
-
-    // 2. Check if the response is OK (status code 200-299)
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! status: ${response.status}`);
-    // }
-
-    // 3. Await the parsing of the response body as JSON
-    // const data = await response.json();
-
-    // 4. Return the data for use elsewhere in your app
-    // return data;
     return weatherData.days[0];
   } catch (error) {
-    // 5. Handle any errors that occurred during the fetch or parsing
-    // You might want to re-throw the error or show a message to the user
-
     fetchError();
   } finally {
     hideLoading();
@@ -128,8 +80,6 @@ function putWeatherDataToDom(infoLocation) {
   infoContainer.innerHTML = "";
   const location = document.getElementById("location");
   location.innerHTML = "";
-  //  const temp = document.getElementById("temp");
-  //  const conditions = document.getElementById("conditions");
 
   if (infoLocation !== "" && infoLocation !== null) {
     const dataPromises = getWeather(infoLocation);
