@@ -8,9 +8,8 @@ function hideLoading() {
 }
 
 function showLoading() {
-  // ✅ Create loading without destroying existing content
   const existingLoading = document.getElementById("global-loading");
-  if (existingLoading) return; // Don't duplicate
+  if (existingLoading) return;
 
   const loadingDiv = document.createElement("div");
   loadingDiv.id = "global-loading";
@@ -21,11 +20,36 @@ function showLoading() {
 
 function fetchError() {
   const body = document.body;
+
+  // Error Elements Container
+  const errorElContainer = document.createElement("div");
+  errorElContainer.id = "error-el-container";
+
   const errorEl = document.createElement("div");
   errorEl.id = "error-el";
   errorEl.innerText = "No data availabe for your search..";
+  errorElContainer.appendChild(errorEl);
 
-  body.appendChild(errorEl);
+  // New Search Container to Elements Container
+  const newSearchContainer = document.createElement("div");
+  newSearchContainer.id = "new-search-container";
+  errorElContainer.appendChild(newSearchContainer);
+
+  const newSearchInput = document.createElement("input");
+  newSearchInput.id = "new-search-location";
+  newSearchContainer.appendChild(newSearchInput);
+
+  const newSearchButton = document.createElement("button");
+  newSearchButton.id = "new-search-button";
+  newSearchButton.innerText = "New Location";
+  newSearchButton.addEventListener("click", (event) => {
+    
+  const newLocationInput = document.getElementById("new-search-location");
+    getWeatherButtonHandler(newLocationInput, event);
+  });
+  newSearchContainer.appendChild(newSearchButton);
+
+  body.appendChild(errorElContainer);
 
   // setTimeout(() => {
   //   errorEl.remove();
@@ -118,8 +142,8 @@ function putWeatherDataToDom(infoLocation) {
     });
 
     dataPromises.then((data) => {
-      const errorEl = document.getElementById("error-el");
-      if (errorEl) errorEl.remove();
+      const errorElContainer = document.getElementById("error-el-container");
+      if (errorElContainer) errorElContainer.remove();
 
       if (typeof data !== "object") {
         fetchError();
@@ -159,10 +183,14 @@ function putWeatherDataToDom(infoLocation) {
 
 const getWeatherButton = document.getElementById("get-weather-data");
 getWeatherButton.addEventListener("click", (event) => {
-  event.preventDefault();
   const locationInput = document.getElementById("search-location");
+  getWeatherButtonHandler(locationInput, event);
+});
+
+function getWeatherButtonHandler(locationInput, event) {
+  event.preventDefault();
   console.log(locationInput);
   if (locationInput.value !== "") {
     putWeatherDataToDom(locationInput.value);
   }
-});
+}
