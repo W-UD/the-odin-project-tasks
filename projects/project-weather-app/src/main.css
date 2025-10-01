@@ -27,12 +27,10 @@
 }
 
 #weather-info-container {
-  padding: 20px;
-  padding-top: 50px;
-  padding-bottom: 10px;
+  padding: 50px 20px 10px;
   background-color: #ac9d88;
-  height: min(100vh);
 
+  width: fit-content;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -65,6 +63,16 @@
   /* column-gap: 0px; */
   /* row-gap: 8px; */
   gap: 8px 0px;
+}
+
+@media (max-width: 450px) {
+  #info-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "main main"
+      "main2 main2"
+      "main3 main3";
+  }
 }
 
 #info-container > div:not(.top-table) {
