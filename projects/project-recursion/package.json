@@ -1,0 +1,13 @@
+{
+  "name": "project-recursion",
+  "version": "1.0.0",
+  "description": "The task from The Odin Project",
+  "scripts": {
+    "open": "nodemon recursion.js"
+  },
+  "author": "wud",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
