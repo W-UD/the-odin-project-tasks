@@ -1,4 +1,4 @@
-class LinkedList {
+export class LinkedList {
   constructor() {
     this.head = null;
     this.size = 0;
@@ -200,17 +200,3 @@ class Node {
   }
 }
 
-// Testing:
-const list = new LinkedList();
-
-list.appendData("dog");
-list.appendData("cat");
-list.appendData("parrot");
-list.appendData("hamster");
-list.appendData("snake");
-list.appendData("turtle");
-
-console.log(list.toString());
-
-list.removeAt(2);
-console.log(list.toString());
