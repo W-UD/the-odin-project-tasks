@@ -1,0 +1,29 @@
+{
+  "name": "project-linked-list",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "eslint": "eslint --config eslint.config.mjs .",
+    "eslint-fix": "eslint --config eslint.config.mjs . --fix",
+    "eslint-with-format": "eslint --format json-with-metadata .",
+    "eslint-prettier-check": "eslint-config-prettier .",
+    "prittify": "prettier . --config .prettierrc",
+    "prittify-check": "prettier . --config .prettierrc --check",
+    "prittify-write": "prettier . --config .prettierrc --write"
+  },
+  "author": "wud",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/config-inspector": "^1.2.0",
+    "@eslint/js": "^9.34.0",
+    "eslint": "^9.34.0",
+    "eslint-config-eslint": "^13.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.3.0",
+    "prettier": "3.6.2"
+  }
+}
